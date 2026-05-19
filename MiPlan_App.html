@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a1a0e">
+<title>Mi Plan · Sofia</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0a1a0e;--surf:#112016;--surf2:#1a2e1e;--surf3:#223826;
+  --border:#2a4030;--border2:#3a5540;
+  --text:#e8f5ec;--text2:#9bbaa5;--text3:#5a7a62;
+  --green:#5cdb7a;--green-d:#3ab858;--green-dk:#1e7a38;
+  --gbg:#0d2a16;--gt:#a8f0bc;
+  --blue:#60c4fa;--bbg:#0a2030;--btext:#b0dff8;
+  --amber:#fbbf24;--abg:#241800;--atext:#fde68a;
+  --pink:#f472b6;--pkbg:#2a0a1e;--pktext:#fce7f3;
+  --red:#f87171;--rbg:#2a0a0a;
+  --r:14px;--rs:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);overscroll-behavior:none}
+.app{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+.hdr{background:var(--surf);border-bottom:1px solid var(--border);padding:14px 16px 12px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;flex-shrink:0}
+.hdr-logo{width:36px;height:36px;border-radius:10px;background:var(--green-dk);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-logo svg{width:20px;height:20px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:19px;color:var(--text)}
+.hdr-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.hdr-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--green-dk);color:var(--gt);white-space:nowrap}
+.nav{display:flex;background:var(--surf);border-bottom:1px solid var(--border);flex-shrink:0;position:sticky;top:62px;z-index:19;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nb{flex:1;min-width:60px;padding:9px 4px 8px;border:none;background:none;font-size:10px;font-weight:500;color:var(--text3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent;font-family:'DM Sans',sans-serif;transition:color .15s;white-space:nowrap}
+.nb svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.nb.on{color:var(--green);border-bottom-color:var(--green)}
+.content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:24px}
+.tab{display:none}.tab.on{display:block}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);margin:8px 14px;padding:14px}
+.sec-lbl{padding:14px 14px 5px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;display:flex;align-items:center;gap:8px}
+.sec-lbl::after{content:"";flex:1;height:1px;background:var(--border)}
+.stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 14px}
+.scard{background:var(--surf2);border-radius:var(--rs);padding:12px;text-align:center}
+.snum{font-family:'DM Serif Display',serif;font-size:26px;color:var(--green);display:block;line-height:1.1}
+.slbl{font-size:11px;color:var(--text3);margin-top:3px}
+.prog-bar-wrap{margin-bottom:10px}
+.prog-label{display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px}
+.prog-label span:first-child{color:var(--text2)}
+.prog-label span:last-child{color:var(--green);font-weight:500}
+.prog-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green-dk);border-radius:3px;transition:width .4s ease}
+.field-group{margin-bottom:10px}
+.field-label{font-size:11px;font-weight:500;color:var(--text3);margin-bottom:4px;display:block}
+.field-input{width:100%;font-size:14px;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--rs);background:var(--surf2);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-appearance:none}
+.field-input:focus{outline:none;border-color:var(--green-d)}
+.field-grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.field-grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+textarea.field-input{resize:none;min-height:58px;line-height:1.5}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--green-dk);color:var(--gt);border:none;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:active{opacity:.85}
+.btn-primary svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-outline{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;background:none;color:var(--text2);border:1px solid var(--border2);border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px}
+.sens-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.sens-btn{padding:5px 10px;border:1px solid var(--border2);border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;background:var(--surf2);color:var(--text2);font-family:'DM Sans',sans-serif;-webkit-user-select:none;user-select:none}
+.sens-btn.sel{border-color:var(--green-d);background:var(--gbg);color:var(--gt)}
+
+/* MEAL CARDS */
+.meal-card{background:var(--surf2);border-radius:var(--rs);padding:12px;margin-bottom:8px;border:1px solid var(--border);cursor:pointer;transition:border-color .15s}
+.meal-card:active{border-color:var(--green-d)}
+.meal-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.meal-icon{width:32px;height:32px;border-radius:8px;background:var(--surf3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.meal-name{font-size:13px;font-weight:500;color:var(--text)}
+.meal-kcal{font-size:11px;color:var(--text3)}
+.meal-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:6px}
+.macro-pills{display:flex;gap:5px;flex-wrap:wrap}
+.mpill{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px}
+.mpill-p{background:var(--gbg);color:var(--gt)}
+.mpill-c{background:var(--bbg);color:var(--btext)}
+.mpill-g{background:var(--abg);color:var(--atext)}
+.meal-tap-hint{font-size:10px;color:var(--text3);margin-top:6px;display:flex;align-items:center;gap:4px}
+
+/* RECIPE MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;display:none;align-items:flex-end}
+.modal-overlay.open{display:flex}
+.modal-sheet{background:var(--surf);border-radius:20px 20px 0 0;width:100%;max-width:480px;margin:0 auto;max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-drag{width:40px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0}
+.modal-header{padding:16px 16px 12px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--border);flex-shrink:0}
+.modal-icon{width:44px;height:44px;border-radius:10px;background:var(--surf3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.modal-title{font-size:16px;font-weight:500;color:var(--text);line-height:1.3}
+.modal-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.modal-close{margin-left:auto;padding:6px;background:var(--surf2);border:none;border-radius:50%;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.modal-close svg{width:16px;height:16px;stroke:var(--text2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.modal-body{overflow-y:auto;padding:16px;flex:1}
+.modal-macros{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.modal-section-title{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.modal-section-title svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ingredient-list{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.ingredient-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surf2);border-radius:var(--rs);font-size:13px}
+.ingredient-dot{width:6px;height:6px;border-radius:50%;background:var(--green-dk);flex-shrink:0}
+.ingredient-name{flex:1;color:var(--text)}
+.ingredient-qty{color:var(--text3);font-size:12px;font-weight:500}
+.step-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.step-item{display:flex;gap:12px;align-items:flex-start}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--green-dk);color:var(--gt);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--text2);line-height:1.6;flex:1;padding-top:4px}
+.tip-modal{background:var(--gbg);border:1px solid var(--green-dk);border-radius:var(--rs);padding:12px;font-size:12px;color:var(--gt);line-height:1.6;margin-bottom:16px}
+.tip-modal-title{font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:5px}
+
+/* EX CARDS */
+.ex-card{background:var(--surf2);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:8px;overflow:hidden}
+.ex-head{padding:11px 12px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.ex-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ex-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ex-body{display:none;border-top:1px solid var(--border);padding:10px 12px}
+.ex-card.open .ex-body{display:block}
+.chev{color:var(--text3);flex-shrink:0;transition:transform .2s}
+.chev svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ex-card.open .chev{transform:rotate(180deg)}
+.ex-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.ex-row:last-child{border-bottom:none}
+.ex-row-name{color:var(--text);flex:1}
+.ex-row-detail{color:var(--text2);font-size:11px;text-align:right;margin-left:8px}
+.badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px}
+.b-green{background:var(--gbg);color:var(--gt);border:1px solid var(--green-dk)}
+.b-blue{background:var(--bbg);color:var(--btext);border:1px solid #185FA5}
+.b-amber{background:var(--abg);color:var(--atext);border:1px solid #854F0B}
+.b-red{background:var(--rbg);color:var(--red);border:1px solid #7a1a1a}
+.b-pink{background:var(--pkbg);color:var(--pktext);border:1px solid #7a2050}
+
+/* WEEK CARDS */
+.week-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);margin:6px 14px;overflow:hidden}
+.week-card.cur{border-color:var(--green-d)}
+.week-head{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.week-title{font-size:13px;font-weight:500;color:var(--text)}
+.week-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.week-body{display:none;border-top:1px solid var(--border);padding:14px}
+.week-card.open .week-body{display:block}
+.day-row{display:flex;gap:6px;padding:8px 14px;overflow-x:auto;scrollbar-width:none}
+.day-row::-webkit-scrollbar{display:none}
+.day-btn{padding:7px 14px;border:1px solid var(--border2);border-radius:20px;background:var(--surf2);font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;flex-shrink:0;-webkit-user-select:none;user-select:none}
+.day-btn.on{background:var(--gbg);border-color:var(--green-d);color:var(--gt)}
+.tip-box{background:var(--surf2);border-left:3px solid var(--green-dk);border-radius:0 var(--rs) var(--rs) 0;padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--text2);line-height:1.5}
+.chart-wrap{height:180px;position:relative;margin:8px 14px}
+.phase-banner{margin:8px 14px;border-radius:var(--rs);padding:10px 14px;display:flex;align-items:center;gap:10px}
+.phase-banner svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.phase-banner-title{font-size:13px;font-weight:500}
+.phase-banner-sub{font-size:11px;margin-top:1px;opacity:.8}
+
+/* FASE NUEVA BANNER */
+.new-phase-banner{margin:8px 14px;border-radius:var(--r);padding:14px;border:1.5px solid var(--green-d);background:var(--gbg);display:flex;align-items:flex-start;gap:12px;position:relative}
+.new-phase-banner svg{width:22px;height:22px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:1px}
+.new-phase-banner-close{position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px;line-height:1;padding:2px 6px}
+.new-phase-title{font-size:14px;font-weight:500;color:var(--green);margin-bottom:3px}
+.new-phase-sub{font-size:12px;color:var(--text2);line-height:1.5}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green-dk);color:var(--gt);padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s ease;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.macro-bar{background:var(--surf2);border-radius:var(--rs);padding:12px;margin-bottom:10px}
+.macro-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.macro-row:last-child{margin-bottom:0}
+.macro-lbl{font-size:12px;color:var(--text2);width:72px;flex-shrink:0}
+.macro-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.macro-fill{height:100%;border-radius:3px}
+.macro-val{font-size:12px;font-weight:500;color:var(--text);width:44px;text-align:right;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <div class="hdr-logo"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="19" cy="5" r="3" fill="var(--green-dk)" stroke="var(--green)"/></svg></div>
+    <div style="flex:1"><h1>Mi Plan</h1><div class="hdr-sub" id="hdr-sub">Cargando...</div></div>
+    <div class="hdr-badge" id="hdr-badge">Sem 1</div>
+  </div>
+  <nav class="nav">
+    <button class="nb on" id="nb-dash" data-tab="dash" onclick="showTab(this)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Inicio</button>
+    <button class="nb" id="nb-seguimiento" data-tab="seguimiento" onclick="showTab(this)"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Seguimiento</button>
+    <button class="nb" id="nb-comidas" data-tab="comidas" onclick="showTab(this)"><svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Comidas</button>
+    <button class="nb" id="nb-rutina" data-tab="rutina" onclick="showTab(this)"><svg viewBox="0 0 24 24"><line x1="6" y1="12" x2="18" y2="12"/><circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/></svg>Rutina</button>
+    <button class="nb" id="nb-grafico" data-tab="grafico" onclick="showTab(this)"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Grafico</button>
+  </nav>
+  <div class="content">
+    <!-- DASHBOARD -->
+    <div class="tab on" id="tab-dash">
+      <div id="new-phase-alert"></div>
+      <div class="sec-lbl" style="padding-top:14px">Tu progreso</div>
+      <div class="stat-grid">
+        <div class="scard"><span class="snum" id="d-peso-actual">—</span><span class="slbl">kg actuales</span></div>
+        <div class="scard"><span class="snum" id="d-perdido" style="color:var(--blue)">—</span><span class="slbl">kg perdidos</span></div>
+        <div class="scard"><span class="snum" id="d-semanas" style="color:var(--amber)">0</span><span class="slbl">semanas activas</span></div>
+        <div class="scard"><span class="snum" id="d-faltan">—</span><span class="slbl">kg para la meta</span></div>
+      </div>
+      <div class="sec-lbl">Meta global</div>
+      <div class="card">
+        <div class="prog-bar-wrap"><div class="prog-label"><span>Progreso hacia -15 kg</span><span id="d-prog-pct">0%</span></div><div class="prog-track"><div class="prog-fill" id="d-prog-bar" style="width:0%"></div></div></div>
+        <div style="font-size:12px;color:var(--text3);text-align:center" id="d-prog-msg">Registra tu primer peso para comenzar</div>
+      </div>
+      <div id="phase-banner-wrap"></div>
+      <div class="sec-lbl">Macros del dia</div>
+      <div class="card" id="dash-macros"></div>
+      <div class="sec-lbl">Registro rapido de hoy</div>
+      <div class="card">
+        <div class="field-grid-2" style="margin-bottom:10px">
+          <div class="field-group" style="margin-bottom:0"><label class="field-label">Peso hoy (kg)</label><input class="field-input" type="number" step="0.1" id="quick-peso" placeholder="ej. 73.5"></div>
+          <div class="field-group" style="margin-bottom:0"><label class="field-label">Agua (litros)</label><input class="field-input" type="number" step="0.5" id="quick-agua" placeholder="ej. 2.0"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500">Como me siento hoy?</div>
+        <div class="sens-row" id="quick-sens"></div>
+        <div class="field-group"><label class="field-label">Nota del dia</label><textarea class="field-input" id="quick-nota" placeholder="algo que quieras recordar..."></textarea></div>
+        <button class="btn-primary" onclick="saveQuickEntry()"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Guardar registro de hoy</button>
+      </div>
+    </div>
+    <!-- SEGUIMIENTO -->
+    <div class="tab" id="tab-seguimiento"><div class="sec-lbl" style="padding-top:14px">12 semanas</div><div id="weeks-list"></div></div>
+    <!-- COMIDAS -->
+    <div class="tab" id="tab-comidas">
+      <div id="comidas-phase-banner" style="padding-top:8px"></div>
+      <div style="padding:6px 14px 2px;font-size:12px;color:var(--text3)">Toca cualquier comida para ver la receta paso a paso</div>
+      <div class="day-row" id="meal-day-row"></div>
+      <div id="meals-content"></div>
+    </div>
+    <!-- RUTINA -->
+    <div class="tab" id="tab-rutina"><div id="rutina-phase-banner" style="padding-top:8px"></div><div id="rutina-content"></div></div>
+    <!-- GRAFICO -->
+    <div class="tab" id="tab-grafico">
+      <div class="sec-lbl" style="padding-top:14px">Evolucion del peso</div><div class="chart-wrap"><canvas id="chart-peso"></canvas></div>
+      <div class="sec-lbl">Cintura (cm)</div><div class="chart-wrap"><canvas id="chart-cintura"></canvas></div>
+      <div class="sec-lbl">Agua diaria (litros)</div><div class="chart-wrap" style="margin-bottom:20px"><canvas id="chart-agua"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- RECIPE MODAL -->
+<div class="modal-overlay" id="recipe-modal" onclick="closeModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <div class="modal-icon" id="m-icon">🍽️</div>
+      <div style="flex:1;min-width:0">
+        <div class="modal-title" id="m-title">Receta</div>
+        <div class="modal-sub" id="m-sub">—</div>
+      </div>
+      <button class="modal-close" onclick="closeRecipeModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var KEY='miplan_sofia_v3';
+var D={pesoInicio:73,meta:58,currentDay:0,lastPhase:0,phaseBannerDismissed:{},
+  semanas:Array(12).fill(null).map(function(){return{peso:'',cintura:'',cadera:'',sensacion:'',nota:'',done:false};}),
+  diarios:{}};
+function load(){try{var s=localStorage.getItem(KEY);if(s){var p=JSON.parse(s);Object.assign(D,p);if(!D.phaseBannerDismissed)D.phaseBannerDismissed={};}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(D));}catch(e){}}
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+function today(){return new Date().toLocaleDateString('es-CL');}
+function getCurrentSem(){var i=D.semanas.findIndex(function(w){return!w.done;});return i<0?11:i;}
+function getPhase(s){return s<=3?0:s<=7?1:2;}
+
+var PHASE_INFO=[
+  {label:'Fase 1 · Adaptacion',subs:'Semanas 1-4',desc:'Habitos y forma correcta. El cuerpo aprende.',kcal:'1,550',prot:'120g',carb:'160g',gras:'50g',color:'var(--gbg)',tc:'var(--gt)',bc:'var(--green-dk)'},
+  {label:'Fase 2 · Aceleracion',subs:'Semanas 5-8',desc:'Mas proteina, sube pesos y cardio extra.',kcal:'1,480',prot:'125g',carb:'145g',gras:'48g',color:'var(--bbg)',tc:'var(--btext)',bc:'#185FA5'},
+  {label:'Fase 3 · Consolidacion',subs:'Semanas 9-12',desc:'Cargas maximas, definicion y sem 11 recarga.',kcal:'1,500',prot:'130g',carb:'150g',gras:'50g',color:'var(--abg)',tc:'var(--atext)',bc:'#854F0B'}
+];
+var PHASE_NAMES=['Adaptacion','Aceleracion','Consolidacion'];
+var SENS=['Con energia','Motivada','Cansada','Sin hambre','Mucha hambre','Dolorida','Estancada','Descansada'];
+
+function buildSensRow(id,cur,cb){var c=document.getElementById(id);if(!c)return;c.innerHTML='';SENS.forEach(function(s){var b=document.createElement('button');b.className='sens-btn'+(cur===s?' sel':'');b.textContent=s;b.onclick=function(){document.querySelectorAll('#'+id+' .sens-btn').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');cb(s);};c.appendChild(b);});}
+function phaseBannerHTML(i){var ph=PHASE_INFO[i];return'<div class="phase-banner" style="background:'+ph.color+';border:1px solid '+ph.bc+'"><svg viewBox="0 0 24 24" style="color:'+ph.tc+'"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12"/><polyline points="12 6 12 12 16 14"/></svg><div><div class="phase-banner-title" style="color:'+ph.tc+'">'+ph.label+'</div><div class="phase-banner-sub" style="color:'+ph.tc+'">'+ph.subs+' · '+ph.desc+'</div></div></div>';}
+function macroCardHTML(i){var ph=PHASE_INFO[i];return'<div class="macro-bar"><div class="macro-row"><span class="macro-lbl">Proteina</span><div class="macro-track"><div class="macro-fill" style="width:31%;background:var(--green-dk)"></div></div><span class="macro-val">'+ph.prot+'</span></div><div class="macro-row"><span class="macro-lbl">Carbos</span><div class="macro-track"><div class="macro-fill" style="width:41%;background:#185FA5"></div></div><span class="macro-val">'+ph.carb+'</span></div><div class="macro-row"><span class="macro-lbl">Grasas</span><div class="macro-track"><div class="macro-fill" style="width:29%;background:#BA7517"></div></div><span class="macro-val">'+ph.gras+'</span></div></div><div style="text-align:center;font-size:12px;color:var(--text3)">Total: <strong style="color:var(--text)">'+ph.kcal+' kcal</strong></div>';}
+
+function renderNewPhaseBanner(phIdx){
+  var el=document.getElementById('new-phase-alert');
+  if(phIdx===0){el.innerHTML='';return;}
+  var key='ph'+phIdx;
+  if(D.phaseBannerDismissed[key]){el.innerHTML='';return;}
+  var msgs=[
+    '',
+    '¡Entraste a la Fase 2! Tu menu de comidas y rutina cambiaron. Mas proteina, nuevas variantes de ejercicios y un segundo dia de cardio.',
+    '¡Entraste a la Fase 3! Cargas maximas en pesas, HIIT en cardio y menu de definicion. La semana 11 es de recarga — come mas esa semana.'
+  ];
+  el.innerHTML='<div class="new-phase-banner" id="npb-'+phIdx+'">' + '<svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><div style="flex:1"><div class="new-phase-title">'+PHASE_INFO[phIdx].label+' activa</div><div class="new-phase-sub">'+msgs[phIdx]+'</div></div><button class="new-phase-banner-close" onclick="dismissPhaseBanner('+phIdx+')">×</button></div>';
+}
+function dismissPhaseBanner(btn){var phIdx=parseInt(btn.closest('.new-phase-banner').id.replace('npb-',''));D.phaseBannerDismissed['ph'+phIdx]=true;save();document.getElementById('new-phase-alert').innerHTML='';}
+
+function showTab(btn){var t=btn.dataset.tab;document.querySelectorAll('.tab').forEach(function(el){el.classList.remove('on');});document.querySelectorAll('.nb').forEach(function(el){el.classList.remove('on');});document.getElementById('tab-'+t).classList.add('on');btn.classList.add('on');if(t==='grafico')renderCharts();if(t==='seguimiento')renderWeeks();if(t==='comidas'){renderMealDays();renderMeals();}if(t==='rutina')renderRutina();if(t==='dash')renderDash();}
+
+function renderDash(){
+  var actual=null;var pesos=D.semanas.map(function(w){return w.peso?parseFloat(w.peso):null;});var found=pesos.filter(function(x){return x!==null;});if(found.length)actual=found[found.length-1];
+  var inicio=found.length?found[0]:D.pesoInicio;
+  var perdido=actual?(inicio-actual):0;var faltan=actual?Math.max(0,actual-D.meta):(inicio-D.meta);
+  var semActivas=D.semanas.filter(function(w){return w.done;}).length;
+  var pct=Math.min(100,Math.max(0,Math.round(perdido/15*100)));
+  var semIdx=getCurrentSem();var phIdx=getPhase(semIdx);
+  document.getElementById('d-peso-actual').textContent=actual?actual.toFixed(1):'—';
+  document.getElementById('d-perdido').textContent=perdido>0?'-'+perdido.toFixed(1):'—';
+  document.getElementById('d-semanas').textContent=semActivas;
+  document.getElementById('d-faltan').textContent=faltan>0?faltan.toFixed(1):'Meta!';
+  document.getElementById('d-prog-pct').textContent=pct+'%';
+  document.getElementById('d-prog-bar').style.width=pct+'%';
+  var msgs=['Registra tu primer peso','Vas muy bien, sigue asi!','Ya llevas el '+pct+'% del camino','Mas de la mitad — imparable!','Casi en la meta!','META ALCANZADA!'];
+  var mi=pct===0?0:pct<25?1:pct<50?2:pct<75?3:pct<100?4:5;
+  document.getElementById('d-prog-msg').textContent=msgs[mi];
+  document.getElementById('phase-banner-wrap').innerHTML=phaseBannerHTML(phIdx);
+  document.getElementById('dash-macros').innerHTML=macroCardHTML(phIdx);
+  document.getElementById('hdr-sub').textContent='Fase '+(phIdx+1)+' · Semana '+(semIdx+1)+' de 12';
+  document.getElementById('hdr-badge').textContent='Sem '+(semIdx+1);
+  renderNewPhaseBanner(phIdx);
+  var td=D.diarios[today()]||{};
+  var qp=document.getElementById('quick-peso');var qa=document.getElementById('quick-agua');var qn=document.getElementById('quick-nota');
+  if(qp)qp.value=td.peso||'';if(qa)qa.value=td.agua||'';if(qn)qn.value=td.nota||'';
+  buildSensRow('quick-sens',td.sensacion||'',function(s){D.diarios[today()]=D.diarios[today()]||{};D.diarios[today()].sensacion=s;save();});
+}
+function saveQuickEntry(){var tk=today();if(!D.diarios[tk])D.diarios[tk]={};var peso=document.getElementById('quick-peso').value;D.diarios[tk].peso=peso;D.diarios[tk].agua=document.getElementById('quick-agua').value;D.diarios[tk].nota=document.getElementById('quick-nota').value;D.diarios[tk].fecha=tk;if(peso&&!D.pesoInicio)D.pesoInicio=parseFloat(peso);save();renderDash();toast('Registro guardado!');}
+
+// SEMANAS
+var PL=['Adaptacion','Adaptacion','Adaptacion','Adaptacion','Aceleracion','Aceleracion','Aceleracion','Aceleracion','Cierre','Cierre','Recarga','Cierre'];
+var PB=['b-green','b-green','b-green','b-green','b-blue','b-blue','b-blue','b-blue','b-amber','b-amber','b-pink','b-amber'];
+function renderWeeks(){
+  var html='';D.semanas.forEach(function(w,i){var isCur=!w.done&&(i===0||D.semanas[i-1].done);html+='<div class="week-card'+(isCur?' cur':'')+'\" id="wk-'+i+'"><div class="week-head" onclick="toggleWeek('+i+')"><div><div class="week-title">Semana '+(i+1)+(isCur?' <span style="font-size:10px;color:var(--green)">← ahora</span>':'')+(w.done?' <span class="badge b-green" style="font-size:10px">✓</span>':'')+'</div><div class="week-meta">'+PL[i]+(i===10?' · recarga 1700 kcal':'')+(w.peso?' · '+w.peso+' kg':'')+'</div></div><span class="badge '+PB[i]+'">'+PL[i]+'</span></div><div class="week-body" id="wb-'+i+'"><div class="field-grid-3" style="margin-bottom:10px"><div class="field-group" style="margin-bottom:0"><label class="field-label">Peso kg</label><input class="field-input" type="number" step="0.1" id="wp-'+i+'" value="'+ev(w.peso)+'" placeholder="73.5"></div><div class="field-group" style="margin-bottom:0"><label class="field-label">Cintura cm</label><input class="field-input" type="number" step="0.5" id="wc-'+i+'" value="'+ev(w.cintura)+'" placeholder="84"></div><div class="field-group" style="margin-bottom:0"><label class="field-label">Cadera cm</label><input class="field-input" type="number" step="0.5" id="wh-'+i+'" value="'+ev(w.cadera)+'" placeholder="102"></div></div><div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500">Como me senti</div><div class="sens-row" id="ws-'+i+'"></div><div class="field-group"><label class="field-label">Nota</label><input class="field-input" type="text" id="wn-'+i+'" value="'+ev(w.nota)+'" placeholder="algo que quieras recordar..."></div><button class="btn-primary" onclick="saveWeek('+i+')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Guardar semana '+(i+1)+'</button></div></div>';});
+  document.getElementById('weeks-list').innerHTML=html;
+  D.semanas.forEach(function(w,i){buildSensRow('ws-'+i,w.sensacion||'',function(s){D.semanas[i].sensacion=s;save();});});
+  var cur=document.querySelector('.week-card.cur');if(cur)cur.classList.add('open');
+}
+function ev(s){return(s||'').toString().replace(/"/g,'&quot;');}
+function toggleWeek(i){document.getElementById('wk-'+i).classList.toggle('open');}
+function saveWeek(i){
+  var prevPhase=getPhase(getCurrentSem());
+  var w=D.semanas[i];w.peso=document.getElementById('wp-'+i).value;w.cintura=document.getElementById('wc-'+i).value;w.cadera=document.getElementById('wh-'+i).value;w.nota=document.getElementById('wn-'+i).value;w.done=!!(w.peso||w.cintura);
+  var newPhase=getPhase(getCurrentSem());
+  if(newPhase!==prevPhase){D.phaseBannerDismissed['ph'+newPhase]=false;}
+  save();renderWeeks();renderDash();toast('Semana '+(i+1)+' guardada!');
+}
+
+// ── RECETAS COMPLETAS ─────────────────────────────────────────────
+var RECETAS={
+'bowl-avena':{icon:'☀️',name:'Bowl de avena con fruta',kcal:380,tiempo:'5 min',dificultad:'Facil',ingredientes:[{n:'Avena en hojuelas',q:'1/2 taza (45g)'},{n:'Leche descremada',q:'3/4 taza'},{n:'Platano pequeno',q:'1 unidad'},{n:'Miel de abeja',q:'1 cdta'},{n:'Almendras',q:'1 puñado (15g)'},{n:'Canela',q:'una pizca (opcional)'}],pasos:['Coloca la avena y la leche en una olla pequeña a fuego medio.','Revuelve constantemente durante 3-4 minutos hasta que la avena absorba la leche y tenga consistencia cremosa.','Vierte en un tazón. Si queda muy espesa, agrega un poco mas de leche.','Corta el platano en rodajas y coloca encima.','Añade las almendras, la miel y la canela.','Consume de inmediato mientras esta caliente.'],tip:'Prepara la avena la noche anterior con leche fria (overnight oats) para ahorrar tiempo en la mañana. Solo necesitas sacarla del refrigerador y añadir los toppings.'},
+'pollo-arroz':{icon:'🥗',name:'Pollo a la plancha con arroz y ensalada',kcal:480,tiempo:'20 min',dificultad:'Facil',ingredientes:[{n:'Pechuga de pollo',q:'150g'},{n:'Arroz integral cocido',q:'3/4 taza (ya cocido)'},{n:'Hojas verdes mixtas',q:'2 tazas'},{n:'Tomate cherry',q:'6 unidades'},{n:'Aceite de oliva',q:'1 cdta'},{n:'Limon',q:'1/2 unidad'},{n:'Sal, pimienta y oregano',q:'al gusto'}],pasos:['Golpea ligeramente la pechuga con un mazo para uniformar el grosor y que se cocine parejo.','Sazona el pollo con sal, pimienta y oregano por ambos lados.','Calienta una sarten antiadherente a fuego alto. Cuando este bien caliente, agrega el pollo.','Cocina 5-6 minutos por cada lado sin moverlo, hasta que este dorado y cocido por dentro.','Deja reposar 2 minutos antes de cortar para que los jugos se redistribuyan.','Mientras el pollo reposa, mezcla las hojas verdes con los tomates cherry.','Aliña la ensalada con aceite de oliva, jugo de limon, sal y pimienta.','Sirve el pollo cortado en laminas junto al arroz integral y la ensalada.'],tip:'El arroz integral tarda 35-40 min en cocinarse. Prepara una tanda grande el domingo y guarda en el refrigerador para toda la semana.'},
+'huevos-tostada':{icon:'☀️',name:'Huevos revueltos con tostada integral',kcal:350,tiempo:'10 min',dificultad:'Facil',ingredientes:[{n:'Claras de huevo',q:'3 unidades'},{n:'Huevo entero',q:'1 unidad'},{n:'Pan integral',q:'2 rebanadas'},{n:'Aguacate',q:'1/2 unidad'},{n:'Sal y pimienta',q:'al gusto'},{n:'Aceite de oliva en spray',q:'para la sarten'}],pasos:['Rompe los huevos en un tazón, agrega las claras adicionales, sal y pimienta.','Bate con un tenedor hasta integrar completamente.','Tuesta el pan mientras preparas los huevos.','Calienta una sarten a fuego medio-bajo con un poco de spray de aceite.','Vierte los huevos batidos. Con una espatula de silicona, muevelos suavemente desde los bordes hacia el centro.','Retira del fuego cuando aun esten ligeramente bavosos — terminaran de cocinarse con el calor residual.','Aplasta el aguacate en el pan tostado con un tenedor. Sazona con sal y limon.','Sirve los huevos sobre o al lado de la tostada con aguacate.'],tip:'El secreto del huevo revuelto perfecto es fuego bajo y no sobrecocinar. Retiralos del fuego cuando se ven casi listos.'},
+'ensalada-quinoa':{icon:'🥗',name:'Ensalada de quinoa con atun',kcal:490,tiempo:'15 min',dificultad:'Facil',ingredientes:[{n:'Quinoa cocida',q:'3/4 taza'},{n:'Atun en agua',q:'1 lata (120g)'},{n:'Tomate cherry',q:'8 unidades'},{n:'Pepino',q:'1/2 unidad'},{n:'Aceite de oliva',q:'1 cdta'},{n:'Limon',q:'1 unidad'},{n:'Sal, pimienta y oregano',q:'al gusto'},{n:'Perejil fresco',q:'al gusto (opcional)'}],pasos:['Escurre bien el atun de la lata para eliminar el exceso de agua.','Corta los tomates cherry por la mitad. Corta el pepino en cubos pequeños.','En un tazón grande, combina la quinoa cocida, el atun desmenuzado, los tomates y el pepino.','Prepara el aderezo mezclando el aceite de oliva con el jugo del limon, sal, pimienta y oregano.','Vierte el aderezo sobre la ensalada y mezcla bien.','Ajusta la sazón al gusto. Agrega perejil picado si lo tienes.','Sirve inmediatamente o refrigera hasta por 2 dias.'],tip:'Cocina la quinoa en caldo de verduras en vez de agua para darle mucho mas sabor. Usa proporcion 1:2 (quinoa:agua) y cocina 15 min tapada.'},
+'salmon-papas':{icon:'🌙',name:'Salmon con papas al horno y brocoli',kcal:400,tiempo:'30 min',dificultad:'Facil',ingredientes:[{n:'Filete de salmon',q:'150g'},{n:'Papa mediana',q:'1 unidad'},{n:'Brocoli',q:'1 taza (flores)'},{n:'Limon',q:'1 unidad'},{n:'Ajo en polvo',q:'1/2 cdta'},{n:'Aceite de oliva',q:'1 cdta'},{n:'Sal, pimienta y eneldo',q:'al gusto'}],pasos:['Precalienta el horno a 200°C.','Corta la papa en cubos medianos. Mezcla con aceite de oliva, sal y pimienta. Extiende en una bandeja y hornea 15 minutos.','Mientras la papa hornea, separa el brocoli en flores pequeñas.','A los 15 minutos, agrega el brocoli a la bandeja junto a las papas. Hornea 10 minutos mas.','Sazona el salmon con sal, pimienta, ajo en polvo y eneldo.','En una sarten caliente con aceite en spray, cocina el salmon 3-4 min por lado (o hasta que se desmenuce facilmente con un tenedor).','Exprime limon sobre el salmon al servir.','Sirve todo junto en el plato.'],tip:'Si quieres ahorrar tiempo, cocina el salmon directamente en la misma bandeja del horno junto a las papas y brocoli los ultimos 12 minutos.'},
+'tacos-pollo':{icon:'🌙',name:'Tacos de pollo en tortillas de maiz',kcal:420,tiempo:'20 min',dificultad:'Facil',ingredientes:[{n:'Pollo desmenuzado o pechuga',q:'120g'},{n:'Tortillas de maiz',q:'2 unidades'},{n:'Tomate',q:'1/2 unidad'},{n:'Cebolla',q:'1/4 unidad'},{n:'Cilantro fresco',q:'al gusto'},{n:'Aguacate',q:'1/4 unidad'},{n:'Limon',q:'1/2 unidad'},{n:'Comino y paprika',q:'al gusto'},{n:'Sal',q:'al gusto'}],pasos:['Cocina el pollo sazonado con comino, paprika y sal en una sarten a fuego medio.','Desmenuzalo con dos tenedores mientras se cocina o una vez listo.','Para el pico de gallo: pica el tomate, la cebolla y el cilantro en cubos pequeños. Mezcla con jugo de limon y sal.','Aplasta el aguacate con un tenedor. Sazona con sal y limon.','Calienta las tortillas directamente sobre la llama del gas 30 segundos por lado, o en sarten seca.','Arma los tacos: tortilla, pollo, pico de gallo y aguacate.','Exprime limon al final.'],tip:'Puedes usar pollo asado del dia anterior para hacerlos en menos de 5 minutos. Los tacos fitness son mejores sin agregar crema o queso rallado en exceso.'},
+'smoothie-verde':{icon:'☀️',name:'Smoothie proteico verde',kcal:360,tiempo:'5 min',dificultad:'Muy facil',ingredientes:[{n:'Espinacas baby',q:'1 taza compacta'},{n:'Platano congelado',q:'1 unidad'},{n:'Proteina en polvo',q:'1 scoop'},{n:'Mantequilla de mani',q:'1 cdta'},{n:'Leche descremada',q:'1 taza'},{n:'Hielo',q:'al gusto'}],pasos:['Coloca todos los ingredientes en la licuadora en este orden: leche, espinacas, platano, proteina y mani.','Este orden ayuda a que la licuadora trabaje mejor.','Licua a maxima velocidad por 45-60 segundos hasta que quede completamente liso.','Si queda muy espeso, agrega un poco mas de leche.','Sirve inmediatamente en un vaso grande.','Opcionalmente puedes agregar hielo para que quede mas frio y cremoso.'],tip:'El platano congelado es clave para la textura cremosa. Congela platanos maduros en rodajas y tendras siempre listos. No se nota el sabor de las espinacas — solo el platano y el mani.'},
+'arroz-pollo-casero':{icon:'🥗',name:'Arroz con pollo estilo casero',kcal:470,tiempo:'25 min',dificultad:'Facil',ingredientes:[{n:'Pechuga de pollo',q:'130g en cubos'},{n:'Arroz blanco',q:'3/4 taza crudo'},{n:'Cebolla',q:'1/2 unidad'},{n:'Pimenton rojo',q:'1/2 unidad'},{n:'Tomate',q:'1 unidad'},{n:'Ajo',q:'2 dientes'},{n:'Caldo de pollo bajo sodio',q:'1 taza'},{n:'Comino, sal, pimienta',q:'al gusto'},{n:'Aceite de oliva',q:'1 cdta'}],pasos:['Corta el pollo en cubos de 2cm. Sazona con sal, pimienta y comino.','Pica finamente la cebolla, el ajo, el pimenton y el tomate.','Calienta el aceite en una sarten profunda o olla a fuego medio-alto.','Sella el pollo 2-3 min por lado hasta dorar. Reserva.','En la misma sarten, saltea la cebolla y el ajo 2 minutos. Agrega el pimenton y el tomate.','Cocina las verduras 3-4 minutos hasta que se ablanden.','Agrega el arroz y tuesto 1 minuto revolviendo con las verduras.','Agrega el caldo, el pollo, sal y pimienta. Cuando hierva, baja el fuego, tapa y cocina 18 minutos.','Destapa, esponja con un tenedor y sirve.'],tip:'Este es el tipico arroz con pollo de la semana. Puedes doblar la receta y guardar en el refrigerador hasta 4 dias.'},
+'overnight-oats':{icon:'☀️',name:'Overnight oats con almendras',kcal:370,tiempo:'5 min + noche',dificultad:'Muy facil',ingredientes:[{n:'Avena en hojuelas',q:'1/2 taza'},{n:'Leche descremada',q:'3/4 taza'},{n:'Semillas de chia',q:'1 cdta'},{n:'Miel',q:'1 cdta'},{n:'Almendras',q:'1 puñado'},{n:'Frutos rojos',q:'1/2 taza'}],pasos:['La noche anterior: en un frasco o tazón con tapa, mezcla la avena, la leche, la chia y la miel.','Revuelve bien para que todo quede integrado.','Tapa y lleva al refrigerador por al menos 6 horas (ideal 8-10 horas).','Por la mañana: saca del refrigerador. La avena habra absorbido la leche y tendra consistencia espesa.','Si quedó muy espesa, agrega un poco mas de leche y mezcla.','Agrega los frutos rojos y las almendras encima al momento de comer.','Puedes comerlo frio tal cual o calentar 90 segundos en el microondas.'],tip:'Prepara 3-4 frascos el domingo para tener desayuno listo lunes, martes y miercoles. Dura hasta 4 dias en el refrigerador sin los toppings.'},
+'bowl-atun-aguacate':{icon:'🥗',name:'Bowl de atun con arroz y aguacate',kcal:480,tiempo:'10 min',dificultad:'Muy facil',ingredientes:[{n:'Arroz integral cocido',q:'3/4 taza'},{n:'Atun en agua',q:'1 lata escurrida'},{n:'Aguacate',q:'1/4 unidad'},{n:'Cebolla morada',q:'1/4 unidad'},{n:'Limon',q:'1 unidad'},{n:'Soya baja en sodio',q:'1 cdta'},{n:'Ajonjoli',q:'al gusto (opcional)'}],pasos:['Escurre bien el atun y separalo con un tenedor.','Pica la cebolla morada muy finamente.','Corta el aguacate en cubos o laminas.','En un tazón, coloca el arroz integral como base.','Agrega el atun encima del arroz.','Distribuye la cebolla morada y el aguacate.','Aliña con jugo de limon y salsa soya.','Termina con ajonjoli tostado si lo tienes.'],tip:'Esta es la version fitness del poke bowl. Puedes agregar pepino en rodajas y edamame para hacer el bowl mas completo y vistoso.'},
+'sopa-lentejas':{icon:'🌙',name:'Sopa de lentejas con pan integral',kcal:400,tiempo:'30 min',dificultad:'Facil',ingredientes:[{n:'Lentejas',q:'1/2 taza secas'},{n:'Zanahoria',q:'1 mediana'},{n:'Apio',q:'1 tallo'},{n:'Espinaca',q:'1 taza'},{n:'Ajo',q:'2 dientes'},{n:'Cebolla',q:'1/2 unidad'},{n:'Caldo de verduras',q:'3 tazas'},{n:'Comino y paprika',q:'al gusto'},{n:'Pan integral',q:'1 rebanada'}],pasos:['Pica la cebolla, el ajo, la zanahoria y el apio en cubos pequeños.','En una olla, sofrie la cebolla y el ajo 2 minutos en un poco de aceite.','Agrega la zanahoria y el apio. Cocina 3 minutos mas.','Añade las lentejas (sin remojar), el caldo, el comino y la paprika.','Cuando hierva, baja el fuego y cocina tapado 20-25 minutos hasta que las lentejas esten blandas.','Agrega la espinaca y cocina 2 minutos mas.','Ajusta la sazón. Si queda muy espesa agrega mas caldo.','Sirve con el pan integral tostado al lado.'],tip:'Las lentejas no necesitan remojo previo a diferencia de otros granos. Son el legumbre mas rapido de cocinar. Esta sopa dura 5 dias en el refrigerador y mejora con los dias.'},
+'revuelto-vegetales':{icon:'🌙',name:'Revuelto de huevos con vegetales y papa',kcal:390,tiempo:'15 min',dificultad:'Facil',ingredientes:[{n:'Claras de huevo',q:'3 unidades'},{n:'Huevo entero',q:'1 unidad'},{n:'Pimenton',q:'1/2 unidad'},{n:'Champiñones',q:'6 unidades'},{n:'Espinaca',q:'1 taza'},{n:'Papa cocida',q:'1 pequeña'},{n:'Sal, pimienta y ajo en polvo',q:'al gusto'}],pasos:['Cocina la papa de antemano (microondas 5 min o hervida). Cortala en cubos.','Corta el pimenton en tiras y los champiñones en laminas.','Calienta una sarten a fuego medio con spray de aceite.','Saltea el pimenton y los champiñones 3-4 minutos hasta dorar.','Agrega la espinaca y cocina 1 minuto hasta que se marchite.','Bate los huevos con sal, pimienta y ajo en polvo. Vierte sobre las verduras.','Con espatula, mueve suavemente hasta que los huevos cuajen.','Agrega los cubos de papa y mezcla ligeramente. Sirve inmediatamente.'],tip:'Puedes preparar los vegetales la noche anterior y guardarlos en un contenedor. Por la mañana o noche solo agregas los huevos y en 5 minutos tienes una cena lista.'},
+'pasta-pollo':{icon:'🥗',name:'Pasta integral con pollo y vegetales',kcal:490,tiempo:'25 min',dificultad:'Facil',ingredientes:[{n:'Pasta integral',q:'80g seca'},{n:'Pechuga de pollo',q:'120g'},{n:'Tomate cherry',q:'8 unidades'},{n:'Espinaca',q:'1 taza'},{n:'Ajo',q:'2 dientes'},{n:'Aceite de oliva',q:'1 cdta'},{n:'Sal, pimienta y oregano',q:'al gusto'},{n:'Parmesano rallado',q:'1 cdta (opcional)'}],pasos:['Hierve agua con sal en una olla. Cuando hierva, agrega la pasta y cocina al dente segun el paquete.','Mientras la pasta hierve, sazona y cocina el pollo a la plancha. Cortalo en cubos.','En una sarten, calienta el aceite y saltea el ajo picado 30 segundos.','Agrega los tomates cherry partidos por la mitad. Cocina 2-3 minutos hasta que se ablanden.','Añade la espinaca y el pollo. Mezcla.','Escurre la pasta y agrega a la sarten. Mezcla todo.','Sazona con sal, pimienta y oregano.','Sirve con parmesano rallado si gustas.'],tip:'Guarda 1/4 taza del agua de coccion de la pasta antes de escurrirla. Si la salsa queda seca, ese agua con almidon ayuda a darle cremosidad sin usar crema.'},
+'tilapia-quinoa':{icon:'🌙',name:'Tilapia al limon con quinoa',kcal:400,tiempo:'20 min',dificultad:'Facil',ingredientes:[{n:'Filete de tilapia',q:'150g'},{n:'Quinoa cocida',q:'1/2 taza'},{n:'Limon',q:'1 unidad'},{n:'Ajo en polvo',q:'1/2 cdta'},{n:'Perejil o cilantro',q:'al gusto'},{n:'Aceite de oliva',q:'1 cdta'},{n:'Sal, pimienta y paprika',q:'al gusto'},{n:'Hojas verdes para ensalada',q:'1 taza'}],pasos:['Seca bien el filete de tilapia con papel absorbente. Esto es clave para que dore bien.','Sazona con sal, pimienta, ajo en polvo y paprika por ambos lados.','Calienta aceite en sarten a fuego medio-alto.','Coloca el filete y cocina 3-4 minutos por cada lado sin moverlo.','Esta listo cuando la carne se ve opaca y se desmenuzala facilmente con un tenedor.','Exprime el jugo de un limon sobre el pescado al terminar la coccion.','Sirve sobre la quinoa con ensalada verde al lado.','Decora con perejil o cilantro picado.'],tip:'La tilapia es el pescado mas economico y versatil. Compra en cantidad y congela. Sale del congelador al refrigerador la noche anterior para descongelar de forma segura.'},
+'hotcakes-avena':{icon:'☀️',name:'Hotcakes de avena y platano',kcal:400,tiempo:'15 min',dificultad:'Facil',ingredientes:[{n:'Harina de avena',q:'1 taza (o avena licuada)'},{n:'Platano maduro',q:'1 unidad'},{n:'Huevos',q:'2 unidades'},{n:'Leche descremada',q:'1/4 taza'},{n:'Polvo para hornear',q:'1/2 cdta'},{n:'Extracto de vainilla',q:'1/2 cdta'},{n:'Miel',q:'1 cdta para servir'}],pasos:['En un tazón, aplasta el platano con un tenedor hasta hacer pure.','Agrega los huevos batidos, la leche, la vainilla y mezcla bien.','Añade la harina de avena y el polvo para hornear. Mezcla hasta integrar. No sobremezcles.','Calienta una sarten antiadherente a fuego medio con spray de aceite.','Vierte aproximadamente 1/4 taza de mezcla por hotcake.','Cuando aparezcan burbujas en la superficie y los bordes se vean opacos (2-3 min), voltea.','Cocina 1-2 minutos mas por el otro lado.','Sirve con miel y fruta fresca al gusto.'],tip:'Si licuas la avena antes de mezclar con los demas ingredientes, los hotcakes quedan mas suaves y esponjosos. Puedes congelar los hotcakes ya cocinados y calentar en el tostador durante la semana.'},
+'sopa-ligera':{icon:'🌙',name:'Sopa ligera con tostadas integrales',kcal:350,tiempo:'20 min',dificultad:'Muy facil',ingredientes:[{n:'Caldo de pollo o verduras bajo sodio',q:'3 tazas'},{n:'Zanahoria',q:'1 mediana'},{n:'Calabacin',q:'1 pequeño'},{n:'Apio',q:'1 tallo'},{n:'Chicharo o arveja',q:'1/2 taza'},{n:'Sal, pimienta y hierbas',q:'al gusto'},{n:'Pan integral',q:'2 rebanadas'},{n:'Queso fresco',q:'30g'}],pasos:['Corta todas las verduras en cubos pequeños del mismo tamaño para que se cocinen parejo.','En una olla, lleva el caldo a hervor.','Agrega la zanahoria primero (tarda mas) y cocina 5 minutos.','Añade el calabacin, el apio y el chicharo. Cocina 8-10 minutos mas.','Sazona con sal, pimienta y las hierbas que prefieras (oregano, tomillo, perejil).','Tuesta el pan y sirve con queso fresco encima.','Sirve la sopa caliente con las tostadas al lado.'],tip:'Esta sopa es perfecta para los dias que no quieres pensar mucho. Puedes usar cualquier verdura que tengas en el refrigerador. La clave es el buen caldo como base.'},
+'desayuno-domingo':{icon:'☀️',name:'Desayuno completo de domingo',kcal:420,tiempo:'15 min',dificultad:'Facil',ingredientes:[{n:'Huevos',q:'3 unidades'},{n:'Pan integral',q:'2 rebanadas'},{n:'Aguacate',q:'1/2 unidad'},{n:'Fruta de temporada',q:'1 taza'},{n:'Sal, pimienta y hierbas',q:'al gusto'},{n:'Aceite de oliva en spray',q:'para la sarten'}],pasos:['Tuesta el pan a tu gusto.','Bate los huevos con sal y pimienta.','Cocina los huevos revueltos a fuego bajo, moviendolos suavemente.','Aplasta el aguacate en el pan con sal y unas gotas de limon.','Lava y prepara la fruta de temporada.','Sirve todo junto: huevos, tostada con aguacate y fruta.','Tomate el tiempo — es domingo!'],tip:'El desayuno del domingo es el momento de disfrutar sin prisa. Si tienes mas tiempo, puedes hacer los huevos pochados en vez de revueltos para cambiar la experiencia.'},
+'cazuela':{icon:'🥗',name:'Cazuela familiar',kcal:500,tiempo:'45 min',dificultad:'Medio',ingredientes:[{n:'Pollo en presas o pechuga',q:'150g por persona'},{n:'Papa',q:'1 mediana por persona'},{n:'Choclo',q:'1/2 por persona'},{n:'Zapallo',q:'1 trozo por persona'},{n:'Zanahoria',q:'1 mediana'},{n:'Chicharo',q:'1/2 taza'},{n:'Caldo de pollo',q:'4 tazas'},{n:'Sal, pimienta, aji de color y oregano',q:'al gusto'}],pasos:['Calienta una olla grande con un poco de aceite a fuego medio-alto.','Sella el pollo sazonado 2-3 minutos por lado hasta dorar. No es necesario que quede cocido por dentro.','Retira el pollo y en la misma olla sofrie la cebolla y el ajo 2 minutos.','Agrega el caldo y el pollo de vuelta. Cuando hierva, baja el fuego.','Agrega la zanahoria y la papa en trozos. Cocina 15 minutos.','Añade el zapallo y el choclo. Cocina 15 minutos mas.','Agrega los chicharos los ultimos 5 minutos.','Ajusta la sazón con sal, pimienta, aji de color y oregano al gusto.','Sirve en tazones hondos con el caldo.'],tip:'La cazuela mejora mucho al dia siguiente. Prepara una olla grande el domingo y tienes almuerzo para lunes y martes. Es uno de los platos mas nutritivos y economicos de la cocina chilena.'},
+'ensalada-atun':{icon:'🌙',name:'Ensalada completa con atun',kcal:350,tiempo:'10 min',dificultad:'Muy facil',ingredientes:[{n:'Hojas verdes mixtas',q:'2 tazas'},{n:'Tomate',q:'1 mediano'},{n:'Pepino',q:'1/2 unidad'},{n:'Atun en agua',q:'1 lata escurrida'},{n:'Huevo duro',q:'1 unidad'},{n:'Aceite de oliva',q:'1 cdta'},{n:'Vinagre de manzana',q:'1 cdta'},{n:'Sal y pimienta',q:'al gusto'}],pasos:['Hierve el huevo 10 minutos en agua con sal. Enfria en agua fria antes de pelar.','Escurre bien el atun.','Lava y seca las hojas verdes.','Corta el tomate en gajos y el pepino en rodajas.','Pela y corta el huevo duro en cuartos.','En un tazón, combina las hojas, el tomate, el pepino y el atun desmenuzado.','Prepara el aderezo mezclando aceite, vinagre, sal y pimienta.','Añade el huevo duro encima y vierte el aderezo justo antes de servir.'],tip:'Para que la ensalada llene mas, agrega 1/2 taza de garbanzo cocido. Duplica la proteina y la fibra sin sumar muchas calorias.'},
+'tortilla-claras':{icon:'☀️',name:'Tortilla de claras con avena',kcal:360,tiempo:'10 min',dificultad:'Facil',ingredientes:[{n:'Claras de huevo',q:'4 unidades'},{n:'Huevo entero',q:'1 unidad'},{n:'Espinaca baby',q:'1 taza'},{n:'Tomate cherry',q:'4 unidades'},{n:'Avena en hojuelas',q:'1/3 taza'},{n:'Sal, pimienta y oregano',q:'al gusto'}],pasos:['Prepara primero la avena: calienta con agua o leche hasta cremosa. Reserva.','Bate las claras con el huevo entero, sal y pimienta.','Calienta una sarten antiadherente a fuego medio con spray de aceite.','Añade los tomates cherry cortados y la espinaca. Saltea 1 minuto.','Vierte los huevos sobre las verduras.','Tapa la sarten y cocina 2-3 minutos a fuego bajo hasta que cuaje.','Sirve la tortilla junto a la avena cremosa preparada.'],tip:'Esta combinacion de proteina de los huevos con los carbos de la avena es ideal para dias de entrenamiento temprano. Te da energia sostenida por horas.'},
+'pechuga-rellena':{icon:'🥗',name:'Pechuga rellena con arroz basmati',kcal:500,tiempo:'30 min',dificultad:'Medio',ingredientes:[{n:'Pechuga de pollo grande',q:'150g'},{n:'Champiñones',q:'6 unidades'},{n:'Queso fresco bajo en grasa',q:'30g'},{n:'Arroz basmati',q:'3/4 taza cocido'},{n:'Sal, pimienta y paprika',q:'al gusto'},{n:'Mondadientes',q:'2-3 para cerrar'}],pasos:['Precalienta el horno a 190°C.','Pica los champiñones finamente y saltealos en sarten 3 minutos hasta que pierdan el agua.','Abre la pechuga como un libro: corta por el centro sin atravesar completamente.','Rellena con los champiñones y el queso fresco. Cierra con mondadientes.','Sazona el exterior con sal, pimienta y paprika.','En una sarten apta para horno, sella la pechuga 2 min por lado a fuego alto.','Lleva al horno 15-18 minutos hasta que este cocida por dentro.','Retira los mondadientes antes de servir. Acompaña con el arroz basmati.'],tip:'Puedes rellenar con lo que tengas: espinaca, tomate seco, pimenton asado. La tecnica es la misma. Una pechuga rellena parece un plato gourmet pero es mas facil de lo que parece.'},
+'salmon-teriyaki':{icon:'🥗',name:'Salmon teriyaki con arroz negro',kcal:520,tiempo:'25 min',dificultad:'Facil',ingredientes:[{n:'Filete de salmon',q:'160g'},{n:'Arroz negro',q:'3/4 taza cocido'},{n:'Soya baja en sodio',q:'2 cdas'},{n:'Miel',q:'1 cdta'},{n:'Ajo',q:'1 diente'},{n:'Jengibre rallado',q:'1/4 cdta (opcional)'},{n:'Aceite de sesamo',q:'1/2 cdta'},{n:'Ajonjoli',q:'para decorar'}],pasos:['Prepara la salsa teriyaki: mezcla la soya, la miel, el ajo picado, el jengibre y el aceite de sesamo.','Marina el salmon en esta salsa 10 minutos (o mas si tienes tiempo).','Calienta una sarten antiadherente a fuego medio-alto.','Coloca el salmon con la piel hacia abajo. Cocina 4 minutos sin mover.','Voltea y cocina 2-3 minutos mas. Vierte el resto de la marinada sobre el salmon.','El salmon esta listo cuando se puede desmenuzar facilmente.','Sirve sobre el arroz negro.','Decora con ajonjoli tostado.'],tip:'El arroz negro tiene mas antioxidantes que el arroz integral y un sabor mas profundo. Cocinalo con caldo de verduras para potenciar su sabor. Se ve muy bien en el plato.'},
+'bowl-proteina-3c':{icon:'🥗',name:'Bowl de proteina 3 colores',kcal:530,tiempo:'25 min',dificultad:'Facil',ingredientes:[{n:'Carne magra (lomo o filete)',q:'150g'},{n:'Arroz negro cocido',q:'1/2 taza'},{n:'Pimenton rojo',q:'1/2 unidad'},{n:'Brocoli',q:'1 taza'},{n:'Zanahoria',q:'1 pequeña'},{n:'Aceite de oliva',q:'1 cdta'},{n:'Sal, pimienta y ajo en polvo',q:'al gusto'}],pasos:['Corta la carne en tiras delgadas. Sazona con sal, pimienta y ajo en polvo.','Corta todas las verduras en piezas similares para coccion uniforme.','En una sarten o wok a fuego alto, saltea las verduras con aceite 4-5 minutos. Deben quedar al dente.','En la misma sarten, sella la carne a fuego alto 2-3 minutos.','Mezcla la carne con las verduras brevemente.','Arma el bowl: arroz negro de base, luego la mezcla de carne y verduras.','Los 3 colores son la clave visual: verde (brocoli), rojo (pimenton/zanahoria) y negro (arroz).'],tip:'Este bowl es nutricionalmente muy completo. La clave es el fuego alto para que las verduras queden cocinadas pero crujientes (no blandas). Usa wok si tienes.'},
+'crepes-avena':{icon:'☀️',name:'Crepes de avena y platano',kcal:340,tiempo:'15 min',dificultad:'Facil',ingredientes:[{n:'Avena en hojuelas',q:'1/2 taza'},{n:'Platano maduro',q:'1 unidad'},{n:'Claras de huevo',q:'2 unidades'},{n:'Canela',q:'al gusto'},{n:'Extracto de vainilla',q:'1/2 cdta'},{n:'Miel o mermelada sin azucar',q:'para servir'}],pasos:['Licua juntos la avena, el platano y las claras hasta tener una mezcla completamente lisa.','Agrega la canela y la vainilla. Licua unos segundos mas.','Calienta una sarten antiadherente pequeña a fuego medio con spray de aceite.','Vierte una capa fina de mezcla, apenas cubriendo el fondo de la sarten.','Cocina 1-2 minutos hasta que los bordes se vean secos y puedas deslizar una espatula debajo.','Voltea suavemente y cocina 30-60 segundos mas.','Repite con el resto de la mezcla.','Sirve enrollados o doblados con miel o mermelada sin azucar.'],tip:'El platano mas maduro (con manchas negras) da mejor sabor y endulzante natural. Estos crepes no llevan azucar agregada. Puedes rellenarlos con yogurt griego y frutos rojos.'},
+'parfait-proteina':{icon:'☀️',name:'Parfait de proteina',kcal:330,tiempo:'5 min',dificultad:'Muy facil',ingredientes:[{n:'Yogurt griego natural',q:'150g'},{n:'Proteina en polvo vainilla',q:'1 scoop'},{n:'Granola baja en azucar',q:'2 cdas'},{n:'Frutos rojos',q:'1/2 taza'},{n:'Miel',q:'1/2 cdta'}],pasos:['Mezcla el yogurt griego con la proteina en polvo hasta integrar completamente. Puedes usar un tenedor.','En un vaso o tazón, coloca una capa de la mezcla de yogurt.','Agrega una capa de granola.','Añade una capa de frutos rojos.','Repite las capas si el contenedor es alto.','Termina con una capa de frutos rojos y la miel encima.','Consume inmediatamente para que la granola quede crujiente.'],tip:'Si prefieres que la granola no se ablande, guardala separada y añadela justo antes de comer. Este parfait es el desayuno o snack mas rapido posible para dias de prisa.'},
+'ensalada-cesar':{icon:'🥗',name:'Ensalada cesar de pechuga',kcal:510,tiempo:'20 min',dificultad:'Facil',ingredientes:[{n:'Pechuga de pollo',q:'180g'},{n:'Lechuga romana',q:'3 tazas'},{n:'Parmesano rallado',q:'1 cda'},{n:'Crutones integrales',q:'1/4 taza'},{n:'Aderezo cesar light',q:'2 cdas'},{n:'Limon',q:'1/2 unidad'},{n:'Sal, pimienta y ajo en polvo',q:'al gusto'}],pasos:['Sazona la pechuga con sal, pimienta y ajo en polvo.','Cocina a la plancha 5-6 minutos por lado hasta dorar.','Deja reposar 3 minutos y corta en laminas diagonales.','Lava y seca la lechuga romana. Corta en trozos grandes.','En un tazón, mezcla la lechuga con el aderezo y el jugo de limon.','Agrega los crutones y el parmesano.','Coloca el pollo laminado encima.','Sirve inmediatamente.'],tip:'Para hacer el aderezo casero light: mezcla 1 cda de mayonesa light, 1 cda de yogurt griego, 1 cdta de mostaza, 1 diente ajo rallado, jugo de 1/2 limon, sal y pimienta.'},
+'tostada-salmon-ahumado':{icon:'☀️',name:'Tostada de centeno con salmon ahumado',kcal:360,tiempo:'5 min',dificultad:'Muy facil',ingredientes:[{n:'Pan de centeno',q:'2 rebanadas'},{n:'Salmon ahumado',q:'80g'},{n:'Queso crema light',q:'1 cda'},{n:'Alcaparras',q:'1 cdta'},{n:'Limon',q:'1/2 unidad'},{n:'Cebolla morada',q:'unas rodajas finas'},{n:'Eneldo fresco o seco',q:'al gusto'}],pasos:['Tuesta el pan de centeno a tu gusto.','Unta el queso crema en ambas rebanadas.','Coloca las laminas de salmon ahumado encima.','Añade unas rodajas muy finas de cebolla morada.','Distribuye las alcaparras.','Exprime un poco de limon encima.','Termina con eneldo fresco o seco.','Consume inmediatamente para que el pan no se ablande.'],tip:'Este desayuno parece de restaurante y tarda 5 minutos. El salmon ahumado es caro pero una vez a la semana vale totalmente la pena. Busca el que tenga menos sodio en la etiqueta.'},
+'waffle-proteico':{icon:'☀️',name:'Waffle proteico',kcal:370,tiempo:'15 min',dificultad:'Facil',ingredientes:[{n:'Proteina en polvo',q:'1 scoop'},{n:'Avena en hojuelas',q:'1/2 taza'},{n:'Claras de huevo',q:'2 unidades'},{n:'Stevia o miel',q:'al gusto'},{n:'Extracto de vainilla',q:'1/2 cdta'},{n:'Polvo para hornear',q:'1/4 cdta'},{n:'Agua o leche',q:'2-3 cdas para consistencia'}],pasos:['Mezcla todos los ingredientes secos: avena, proteina en polvo y polvo para hornear.','Agrega las claras, la vainilla y el endulzante.','Añade agua o leche de a poco hasta lograr una mezcla espesa pero que se pueda verter.','Precalienta la wafflera y engrasa con spray de aceite.','Vierte la mezcla (no llenes demasiado, se expande).','Cierra la wafflera y cocina 4-5 minutos segun tu maquina.','Esta listo cuando ya no suelte vapor y este dorado.','Sirve con fruta fresca o 1 cdta de miel.'],tip:'Si no tienes wafflera, puedes cocinar la misma mezcla en una sarten para hacer pancakes. El resultado es igual de bueno. Esta receta es alta en proteina y muy saciante.'}
+};
+
+// COMIDAS DATA
+var MEALS={
+0:[
+{name:'Lun',total:1530,meals:[{icon:'☀️',t:'Desayuno',k:380,n:'Bowl de avena con fruta',d:'1/2 taza avena, leche descremada, platano, miel, almendras.',p:18,c:55,g:10,rid:'bowl-avena'},{icon:'🥗',t:'Almuerzo',k:480,n:'Pollo plancha con arroz integral',d:'150g pechuga, 3/4 taza arroz integral, ensalada con aceite.',p:42,c:48,g:12,rid:'pollo-arroz'},{icon:'🍎',t:'Snack',k:180,n:'Yogurt griego con frutos rojos',d:'150g yogurt griego natural + frutos rojos + miel.',p:15,c:20,g:3,rid:null},{icon:'🌙',t:'Cena',k:400,n:'Salmon con papas y brocoli',d:'150g salmon, 1 papa mediana, brocoli al vapor.',p:38,c:32,g:14,rid:'salmon-papas'},{icon:'⭐',t:'Post-entreno',k:90,n:'Batido de proteina',d:'1 scoop proteina + agua.',p:22,c:4,g:2,rid:null}]},
+{name:'Mar',total:1400,meals:[{icon:'☀️',t:'Desayuno',k:350,n:'Huevos con tostada integral',d:'3 claras+1 huevo, 2 tostadas integrales, aguacate.',p:22,c:30,g:14,rid:'huevos-tostada'},{icon:'🥗',t:'Almuerzo',k:490,n:'Ensalada quinoa con atun',d:'3/4 taza quinoa, atun, tomate cherry, pepino, aceite.',p:38,c:45,g:11,rid:'ensalada-quinoa'},{icon:'🍎',t:'Snack',k:160,n:'Manzana con mantequilla almendras',d:'1 manzana + 1 cdta mantequilla almendras.',p:4,c:28,g:8,rid:null},{icon:'🌙',t:'Cena',k:420,n:'Tacos de pollo',d:'2 tortillas maiz, 120g pollo, pico de gallo, aguacate.',p:32,c:40,g:13,rid:'tacos-pollo'}]},
+{name:'Mie',total:1380,meals:[{icon:'☀️',t:'Desayuno',k:360,n:'Smoothie proteico verde',d:'Espinacas, platano, proteina, mani, leche descremada.',p:28,c:42,g:8,rid:'smoothie-verde'},{icon:'🥗',t:'Almuerzo',k:470,n:'Arroz con pollo casero',d:'3/4 taza arroz, 130g pollo con cebolla y tomate.',p:35,c:52,g:9,rid:'arroz-pollo-casero'},{icon:'🍎',t:'Snack',k:150,n:'Galletas arroz con queso',d:'4 galletas arroz + queso fresco + tomate cherry.',p:10,c:22,g:4,rid:null},{icon:'🌙',t:'Cena',k:400,n:'Sopa de lentejas con pan',d:'Sopa lentejas, zanahoria, apio, espinaca. Pan integral.',p:25,c:52,g:6,rid:'sopa-lentejas'}]},
+{name:'Jue',total:1410,meals:[{icon:'☀️',t:'Desayuno',k:370,n:'Overnight oats',d:'Avena + leche de noche. Chia, frutos rojos, almendras.',p:16,c:52,g:10,rid:'overnight-oats'},{icon:'🥗',t:'Almuerzo',k:480,n:'Bowl atun arroz y aguacate',d:'3/4 taza arroz integral, atun, aguacate, cebolla, limon.',p:40,c:48,g:12,rid:'bowl-atun-aguacate'},{icon:'🍎',t:'Snack',k:170,n:'Yogurt griego con nueces',d:'150g yogurt + miel + nueces.',p:15,c:14,g:9,rid:null},{icon:'🌙',t:'Cena',k:390,n:'Revuelto huevos con vegetales',d:'Claras+huevo, pimenton, champiñones, espinaca, papa.',p:28,c:35,g:10,rid:'revuelto-vegetales'}]},
+{name:'Vie',total:1410,meals:[{icon:'☀️',t:'Desayuno',k:380,n:'Pan integral con pavo y aguacate',d:'2 tostadas, pavo, aguacate, tomate, mostaza.',p:28,c:32,g:12,rid:null},{icon:'🥗',t:'Almuerzo',k:490,n:'Pasta integral con pollo',d:'Pasta integral, pollo, tomate cherry, espinaca, aceite.',p:38,c:55,g:10,rid:'pasta-pollo'},{icon:'🍎',t:'Snack',k:140,n:'Fruta con queso cottage',d:'1 taza fruta + 100g queso cottage.',p:14,c:18,g:2,rid:null},{icon:'🌙',t:'Cena',k:400,n:'Tilapia al limon con quinoa',d:'150g tilapia al horno, 1/2 taza quinoa, ensalada.',p:40,c:30,g:9,rid:'tilapia-quinoa'}]},
+{name:'Sab',total:1430,meals:[{icon:'☀️',t:'Desayuno',k:400,n:'Hotcakes avena y platano',d:'Avena, platano, huevos. Con miel y fruta.',p:20,c:55,g:10,rid:'hotcakes-avena'},{icon:'🥗',t:'Almuerzo',k:550,n:'Comida libre estructurada',d:'Algo que disfrutes con proteina + carbo + vegetal.',p:35,c:55,g:18,rid:null},{icon:'🍎',t:'Snack',k:130,n:'Nueces y mandarina',d:'20g nueces + 1 mandarina.',p:5,c:18,g:10,rid:null},{icon:'🌙',t:'Cena',k:350,n:'Sopa ligera con tostadas',d:'Sopa verduras + 2 tostadas con queso fresco.',p:20,c:38,g:8,rid:'sopa-ligera'}]},
+{name:'Dom',total:1390,meals:[{icon:'☀️',t:'Desayuno',k:420,n:'Desayuno completo domingo',d:'3 huevos, 2 tostadas, aguacate, fruta.',p:25,c:38,g:18,rid:'desayuno-domingo'},{icon:'🥗',t:'Almuerzo',k:500,n:'Cazuela familiar',d:'Pollo, papa, zapallo, zanahoria en caldo.',p:35,c:50,g:15,rid:'cazuela'},{icon:'🍎',t:'Snack',k:120,n:'Yogurt griego solo',d:'200g yogurt griego. Canela y stevia opcional.',p:17,c:8,g:2,rid:null},{icon:'🌙',t:'Cena',k:350,n:'Ensalada completa con atun',d:'Hojas verdes, tomate, pepino, atun, huevo duro.',p:30,c:12,g:14,rid:'ensalada-atun'}]}
+],
+1:[
+{name:'Lun',total:1480,meals:[{icon:'☀️',t:'Desayuno',k:360,n:'Tortilla claras con avena',d:'4 claras+huevo con espinaca. 1/3 taza avena.',p:30,c:35,g:8,rid:'tortilla-claras'},{icon:'🥗',t:'Almuerzo',k:500,n:'Pechuga rellena arroz basmati',d:'Pechuga rellena champiñones y queso. Arroz basmati.',p:48,c:42,g:11,rid:'pechuga-rellena'},{icon:'🍎',t:'Snack',k:150,n:'Proteina con fruta',d:'1 scoop proteina en agua + manzana.',p:22,c:20,g:2,rid:null},{icon:'🌙',t:'Cena',k:380,n:'Merluza con batata asada',d:'180g merluza al vapor. Batata asada con canela.',p:40,c:30,g:8,rid:null},{icon:'⭐',t:'Post-entreno',k:90,n:'Batido express',d:'1 scoop proteina + agua. 30 min post-pesas.',p:22,c:4,g:2,rid:null}]},
+{name:'Mar',total:1460,meals:[{icon:'☀️',t:'Desayuno',k:330,n:'Cottage con fruta y semillas',d:'200g queso cottage, fruta picada, chia, miel.',p:24,c:28,g:6,rid:null},{icon:'🥗',t:'Almuerzo',k:510,n:'Salmon con quinoa y espinaca',d:'150g salmon, 1/2 taza quinoa, espinaca salteada con ajo.',p:44,c:35,g:16,rid:'salmon-papas'},{icon:'🍎',t:'Snack',k:140,n:'Huevo duro con verduras',d:'2 huevos duros + bastones zanahoria y pepino.',p:14,c:8,g:10,rid:null},{icon:'🌙',t:'Cena',k:390,n:'Pollo al curry con coliflor',d:'Pollo con curry light. Coliflor salteada.',p:38,c:14,g:12,rid:null}]},
+{name:'Mie',total:1470,meals:[{icon:'☀️',t:'Desayuno',k:350,n:'Pancakes proteina y avena',d:'Proteina + avena + claras. Con berries.',p:32,c:38,g:6,rid:'hotcakes-avena'},{icon:'🥗',t:'Almuerzo',k:490,n:'Ensalada garbanzo con pollo',d:'Garbanzo, 120g pollo, tomate, pepino, aceite.',p:42,c:40,g:12,rid:'ensalada-quinoa'},{icon:'🍎',t:'Snack',k:140,n:'Edamame con limon',d:'1 taza edamame con sal marina y limon.',p:16,c:14,g:6,rid:null},{icon:'🌙',t:'Cena',k:380,n:'Revuelto pavo con espinaca',d:'150g pavo molido, espinaca, tomate cherry. 1/2 arroz.',p:40,c:22,g:10,rid:'revuelto-vegetales'}]},
+{name:'Jue',total:1450,meals:[{icon:'☀️',t:'Desayuno',k:340,n:'Yogurt con granola proteica',d:'200g yogurt griego, granola sin azucar, arandanos, miel.',p:20,c:38,g:8,rid:'parfait-proteina'},{icon:'🥗',t:'Almuerzo',k:500,n:'Lomo salteado fitness',d:'Lomo, pimenton, cebolla, tomate. 1/2 arroz integral.',p:40,c:35,g:14,rid:'bowl-proteina-3c'},{icon:'🍎',t:'Snack',k:150,n:'Shake proteina con leche',d:'1 scoop proteina + 250ml leche descremada.',p:26,c:15,g:3,rid:null},{icon:'🌙',t:'Cena',k:370,n:'Sopa pollo con garbanzos',d:'Sopa pollo casera con garbanzo, zanahoria, apio.',p:36,c:28,g:8,rid:'sopa-lentejas'}]},
+{name:'Vie',total:1480,meals:[{icon:'☀️',t:'Desayuno',k:360,n:'Bowl avena con proteina',d:'Avena, scoop proteina mezclado, platano, mani.',p:30,c:42,g:8,rid:'bowl-avena'},{icon:'🥗',t:'Almuerzo',k:500,n:'Taco bowl carne magra',d:'Carne molida, lechuga, tomate, aguacate, arroz.',p:38,c:38,g:16,rid:'tacos-pollo'},{icon:'🍎',t:'Snack',k:130,n:'Manzana con proteina',d:'1 manzana + scoop proteina en agua.',p:22,c:22,g:2,rid:null},{icon:'🌙',t:'Cena',k:400,n:'Salmon con brocoli y batata',d:'150g salmon, brocoli al vapor, batata asada.',p:40,c:26,g:14,rid:'salmon-papas'}]},
+{name:'Sab',total:1550,meals:[{icon:'☀️',t:'Desayuno',k:420,n:'Desayuno libre proteico',d:'Algo con proteina como base.',p:25,c:45,g:14,rid:null},{icon:'🥗',t:'Almuerzo',k:560,n:'Comida social libre',d:'Prioriza proteina + vegetal. Un carbo ok.',p:35,c:55,g:20,rid:null},{icon:'🍎',t:'Snack',k:120,n:'Fruta de temporada',d:'1-2 tazas fruta a gusto.',p:2,c:28,g:1,rid:null},{icon:'🌙',t:'Cena',k:360,n:'Ensalada atun con aguacate',d:'2 latas atun, aguacate, tomate cherry, hojas verdes.',p:36,c:10,g:16,rid:'ensalada-atun'}]},
+{name:'Dom',total:1440,meals:[{icon:'☀️',t:'Desayuno',k:380,n:'Tostada aguacate con huevos',d:'2 tostadas, aguacate aplastado, 2 huevos pochados.',p:22,c:34,g:18,rid:'huevos-tostada'},{icon:'🥗',t:'Almuerzo',k:500,n:'Cazuela de quinoa y verduras',d:'Quinoa, verduras asadas, queso fresco.',p:30,c:55,g:12,rid:'cazuela'},{icon:'🍎',t:'Snack',k:130,n:'Nueces con infusion',d:'25g nueces + te sin azucar.',p:5,c:6,g:16,rid:null},{icon:'🌙',t:'Cena',k:380,n:'Pollo plancha con ensalada grande',d:'160g pechuga, ensalada grande con aceite y vinagre.',p:42,c:8,g:12,rid:'pollo-arroz'}]}
+],
+2:[
+{name:'Lun',total:1500,meals:[{icon:'☀️',t:'Desayuno',k:350,n:'Tortilla claras con pan centeno',d:'5 claras+yema con espinaca. Pan de centeno.',p:34,c:28,g:8,rid:'tortilla-claras'},{icon:'🥗',t:'Almuerzo',k:520,n:'Salmon teriyaki arroz negro',d:'160g salmon teriyaki casero. Arroz negro.',p:46,c:42,g:14,rid:'salmon-teriyaki'},{icon:'🍎',t:'Snack',k:150,n:'Batido post-entreno',d:'1 scoop proteina + leche descremada.',p:26,c:14,g:3,rid:null},{icon:'🌙',t:'Cena',k:360,n:'Pollo al horno con calabacin y quinoa',d:'Pollo al horno, calabacines, 1/2 taza quinoa.',p:44,c:28,g:10,rid:'pollo-arroz'},{icon:'⭐',t:'Pre-entreno',k:120,n:'Fruta y cafe',d:'1 banana + cafe americano. 30 min antes.',p:2,c:28,g:1,rid:null}]},
+{name:'Mar',total:1470,meals:[{icon:'☀️',t:'Desayuno',k:330,n:'Parfait de proteina',d:'Yogurt griego + proteina + granola + berries.',p:30,c:34,g:6,rid:'parfait-proteina'},{icon:'🥗',t:'Almuerzo',k:510,n:'Bowl atun con edamame y arroz',d:'Atun, edamame, arroz integral, pepino, soya, sesamo.',p:44,c:38,g:12,rid:'bowl-atun-aguacate'},{icon:'🍎',t:'Snack',k:140,n:'Jamon pavo con apio',d:'80g jamon pavo + apio, zanahoria, pepino.',p:18,c:6,g:4,rid:null},{icon:'🌙',t:'Cena',k:380,n:'Tilapia al papillote con batata',d:'Tilapia al papillote con tomate, aceitunas. Batata.',p:42,c:26,g:8,rid:'tilapia-quinoa'}]},
+{name:'Mie',total:1490,meals:[{icon:'☀️',t:'Desayuno',k:370,n:'Avena proteica con maca',d:'Avena, proteina vainilla, maca, platano.',p:30,c:44,g:6,rid:'bowl-avena'},{icon:'🥗',t:'Almuerzo',k:510,n:'Pollo thai con fideos arroz',d:'Pollo salteado con mani, aji, lima, jengibre. Fideos.',p:40,c:45,g:14,rid:'arroz-pollo-casero'},{icon:'🍎',t:'Snack',k:130,n:'Huevo duro y pepino',d:'2 huevos duros + pepino con sal y limon.',p:14,c:5,g:10,rid:null},{icon:'🌙',t:'Cena',k:370,n:'Sopa lentejas rojas',d:'Lentejas rojas con curcuma, comino, limon.',p:28,c:34,g:8,rid:'sopa-lentejas'}]},
+{name:'Jue',total:1460,meals:[{icon:'☀️',t:'Desayuno',k:340,n:'Crepes de avena y platano',d:'Avena + platano + claras licuados. Cocinar como crepes.',p:22,c:46,g:5,rid:'crepes-avena'},{icon:'🥗',t:'Almuerzo',k:510,n:'Ensalada cesar de pechuga',d:'180g pechuga, lechuga romana, parmesano, crutones.',p:44,c:30,g:14,rid:'ensalada-cesar'},{icon:'🍎',t:'Snack',k:140,n:'Shake cafe proteico',d:'Proteina chocolate + cafe frio + leche + hielo.',p:24,c:12,g:3,rid:null},{icon:'🌙',t:'Cena',k:360,n:'Salmon con esparragos y coliflor',d:'150g salmon, esparragos asados, coliflor al vapor.',p:40,c:12,g:16,rid:'salmon-papas'}]},
+{name:'Vie',total:1500,meals:[{icon:'☀️',t:'Desayuno',k:360,n:'Tostada centeno salmon ahumado',d:'Pan centeno, salmon ahumado, queso crema light, limon.',p:28,c:30,g:12,rid:'tostada-salmon-ahumado'},{icon:'🥗',t:'Almuerzo',k:530,n:'Bowl proteina 3 colores',d:'Carne magra, arroz negro, mix verduras de colores.',p:44,c:40,g:14,rid:'bowl-proteina-3c'},{icon:'🍎',t:'Snack',k:130,n:'Arvejas tostadas y fruta',d:'30g arvejas tostadas + naranja.',p:8,c:22,g:4,rid:null},{icon:'🌙',t:'Cena',k:380,n:'Pavo con calabacin',d:'160g pavo, calabacines con ajo y hierbas.',p:46,c:10,g:12,rid:null}]},
+{name:'Sab',total:1700,meals:[{icon:'☀️',t:'Desayuno',k:450,n:'Desayuno recarga sem 11',d:'Avena + fruta + huevos. Dia de recarga de calorias.',p:28,c:60,g:14,rid:'hotcakes-avena'},{icon:'🥗',t:'Almuerzo',k:600,n:'Almuerzo libre sem 11',d:'Come lo que mas te guste. Repone glucogeno.',p:35,c:70,g:20,rid:null},{icon:'🍎',t:'Snack',k:200,n:'Snack libre',d:'Fruta, chocolate negro, lo que quieras.',p:5,c:35,g:8,rid:null},{icon:'🌙',t:'Cena',k:360,n:'Cena proteica ligera',d:'Proteina + vegetal. Sin carbo.',p:38,c:10,g:14,rid:'ensalada-atun'}]},
+{name:'Dom',total:1460,meals:[{icon:'☀️',t:'Desayuno',k:370,n:'Waffle proteico',d:'Proteina + avena + claras + stevia en wafflera.',p:32,c:36,g:8,rid:'waffle-proteico'},{icon:'🥗',t:'Almuerzo',k:500,n:'Domingo social controlado',d:'Come en familia. Prioriza proteina.',p:36,c:45,g:16,rid:'cazuela'},{icon:'🍎',t:'Snack',k:120,n:'Te con nueces',d:'Te hierbas + 15g nueces.',p:3,c:4,g:10,rid:null},{icon:'🌙',t:'Cena',k:360,n:'Ensalada tibia pollo garbanzos',d:'Pollo, garbanzos, espinaca, tomate, aderezo limon.',p:38,c:28,g:10,rid:'ensalada-atun'}]}
+]};
+
+function renderMealDays(){var row=document.getElementById('meal-day-row');var phIdx=getPhase(getCurrentSem());var days=MEALS[phIdx];var html='';days.forEach(function(d,i){html+='<button class="day-btn'+(D.currentDay===i?' on':'')+'" data-di="'+i+'" onclick="selMealDay(parseInt(this.dataset.di))">'+d.name+'</button>';});row.innerHTML=html;}
+function selMealDay(i){D.currentDay=i;renderMealDays();renderMeals();}
+function renderMeals(){
+  var phIdx=getPhase(getCurrentSem());
+  document.getElementById('comidas-phase-banner').innerHTML=phaseBannerHTML(phIdx);
+  var day=MEALS[phIdx][D.currentDay];
+  var html='<div class="sec-lbl" style="padding-top:4px">'+day.name+' &mdash; '+day.total+' kcal</div>';
+  day.meals.forEach(function(m){
+    var hasRecipe=m.rid&&RECETAS[m.rid];
+    html+='<div class="meal-card" style="margin:5px 14px" onclick="'+( hasRecipe?'openRecipe(\''+m.rid+'\')':'' )+'">';
+    html+='<div class="meal-header"><div class="meal-icon">'+m.icon+'</div><div><div class="meal-name">'+m.t+'</div><div class="meal-kcal">'+m.k+' kcal</div></div>';
+    if(hasRecipe)html+='<span class="badge b-green" style="margin-left:auto;flex-shrink:0">Ver receta</span>';
+    html+='</div>';
+    html+='<div class="meal-desc"><strong style="color:var(--text)">'+m.n+'</strong><br>'+m.d+'</div>';
+    html+='<div class="macro-pills"><span class="mpill mpill-p">'+m.p+'g prot</span><span class="mpill mpill-c">'+m.c+'g carb</span><span class="mpill mpill-g">'+m.g+'g grasa</span></div>';
+    if(hasRecipe)html+='<div class="meal-tap-hint"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Toca para ver la receta paso a paso</div>';
+    html+='</div>';
+  });
+  document.getElementById('meals-content').innerHTML=html;
+}
+
+function openRecipe(rid){
+  var r=RECETAS[rid];if(!r)return;
+  document.getElementById('m-icon').textContent=r.icon;
+  document.getElementById('m-title').textContent=r.name;
+  document.getElementById('m-sub').textContent=r.kcal+' kcal · '+r.tiempo+' · '+r.dificultad;
+  var html='';
+  html+='<div class="modal-macros"><span class="mpill mpill-p" style="font-size:11px;padding:3px 10px">'+r.kcal+' kcal</span><span class="mpill mpill-c" style="font-size:11px;padding:3px 10px">⏱ '+r.tiempo+'</span><span class="mpill mpill-g" style="font-size:11px;padding:3px 10px">'+r.dificultad+'</span></div>';
+  html+='<div class="modal-section-title"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Ingredientes</div>';
+  html+='<div class="ingredient-list">';
+  r.ingredientes.forEach(function(ing){html+='<div class="ingredient-item"><div class="ingredient-dot"></div><span class="ingredient-name">'+ing.n+'</span><span class="ingredient-qty">'+ing.q+'</span></div>';});
+  html+='</div>';
+  html+='<div class="modal-section-title"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Preparacion paso a paso</div>';
+  html+='<div class="step-list">';
+  r.pasos.forEach(function(paso,i){html+='<div class="step-item"><div class="step-num">'+(i+1)+'</div><div class="step-text">'+paso+'</div></div>';});
+  html+='</div>';
+  html+='<div class="tip-modal"><div class="tip-modal-title">💡 Tip de chef</div>'+r.tip+'</div>';
+  document.getElementById('m-body').innerHTML=html;
+  document.getElementById('recipe-modal').classList.add('open');
+  document.getElementById('m-body').scrollTop=0;
+}
+function closeModal(e){if(e.target===document.getElementById('recipe-modal'))document.getElementById('recipe-modal').classList.remove('open');}
+function closeRecipeModal(){document.getElementById('recipe-modal').classList.remove('open');}
+
+// RUTINA
+var RUTINAS={
+0:{nota:'Enfocate en la forma correcta. Pesos moderados que te desafien en las ultimas 2 reps.',dias:[
+{dia:'Lunes',tipo:'Pesas',sub:'Dia A — Espalda + Biceps',badge:'b-green',exs:[{n:'Peso muerto convencional',d:'4x4-6 · forma perfecta'},{n:'Remo con barra',d:'4x6-8'},{n:'Jalones agarre amplio',d:'3x8-10'},{n:'Remo en polea baja',d:'3x10-12'},{n:'Curl barra Z',d:'3x8-10'},{n:'Curl inclinado mancuernas',d:'3x10-12'}]},
+{dia:'Martes',tipo:'Cardio',sub:'Zona 2 — 35 min',badge:'b-blue',exs:[{n:'Caminata rapida o eliptica',d:'35 min'},{n:'Frecuencia cardiaca',d:'120-140 bpm'},{n:'Intensidad',d:'Puedes hablar sin perder aliento'}]},
+{dia:'Miercoles',tipo:'Pesas',sub:'Dia B — Tren inferior',badge:'b-green',exs:[{n:'Sentadilla con barra',d:'4x4-6 · forma perfecta'},{n:'Prensa de pierna 45',d:'3x8-10'},{n:'Peso muerto rumano',d:'4x8-10'},{n:'Curl femoral tumbado',d:'3x10-12'},{n:'Hip thrust con barra',d:'4x8-10'},{n:'Elevacion de talones',d:'4x10-12'}]},
+{dia:'Jueves',tipo:'Descanso activo',sub:'Recuperacion',badge:'b-amber',exs:[{n:'Caminata suave o yoga',d:'20-30 min'},{n:'Estiramientos',d:'10-15 min'}]},
+{dia:'Viernes',tipo:'Pesas',sub:'Dia C — Pecho + Hombros + Triceps',badge:'b-green',exs:[{n:'Press banca con barra',d:'4x4-6'},{n:'Press inclinado mancuernas',d:'3x8-10'},{n:'Aperturas en cable',d:'3x10-12'},{n:'Press militar con barra',d:'4x6-8'},{n:'Elevacion lateral cable',d:'3x10-12'},{n:'Extension polea barra',d:'4x8-10'}]},
+{dia:'Sabado',tipo:'Pesas',sub:'Dia D — Tren inferior posterior',badge:'b-green',exs:[{n:'Sentadilla frontal',d:'4x6-8'},{n:'Zancada caminando',d:'3x10 c/lado'},{n:'Peso muerto sumo',d:'4x6-8'},{n:'Hip thrust unilateral',d:'3x10-12 c/lado'},{n:'Buenos dias',d:'3x10-12'},{n:'Elevacion talones sentado',d:'4x12-15'}]},
+{dia:'Domingo',tipo:'Descanso',sub:'Descanso completo',badge:'b-red',exs:[{n:'Sin ejercicio',d:'7-8h sueno prioritario'},{n:'El musculo crece en reposo',d:'Parte esencial del plan'}]}
+]},
+1:{nota:'Sube pesos 5-10% vs fase 1. Agrega 1 dia cardio extra (jueves). Tu cuerpo ya esta adaptado.',dias:[
+{dia:'Lunes',tipo:'Pesas',sub:'Dia A — Espalda + Biceps · SUBE PESO 5-10%',badge:'b-green',exs:[{n:'Peso muerto convencional',d:'4x4-6 · SUBE PESO'},{n:'Remo con barra',d:'4x6-8 · SUBE PESO'},{n:'Jalones agarre neutro',d:'4x8-10 · variante nueva'},{n:'Remo mancuerna 1 brazo',d:'3x10-12 c/lado'},{n:'Curl barra Z',d:'4x8-10'},{n:'Curl martillo mancuernas',d:'3x10-12'}]},
+{dia:'Martes',tipo:'Cardio',sub:'Zona 2 — 40 min',badge:'b-blue',exs:[{n:'Eliptica o caminata inclinada',d:'40 min'},{n:'Frecuencia cardiaca',d:'125-145 bpm'},{n:'HIIT opcional al final',d:'20seg rapido/40 lento x5'}]},
+{dia:'Miercoles',tipo:'Pesas',sub:'Dia B — Tren inferior · SUBE PESO 5-10%',badge:'b-green',exs:[{n:'Sentadilla con barra',d:'4x4-6 · SUBE PESO'},{n:'Hack squat maquina',d:'3x8-10 · variante nueva'},{n:'Peso muerto rumano',d:'4x8-10 · SUBE PESO'},{n:'Curl femoral sentado',d:'3x10-12 · variante nueva'},{n:'Hip thrust con barra',d:'4x8-10 · SUBE PESO'},{n:'Abductor en maquina',d:'3x15-20 · nuevo'}]},
+{dia:'Jueves',tipo:'Cardio extra',sub:'Zona 2 — 35 min · NUEVO en fase 2',badge:'b-blue',exs:[{n:'Segundo dia de cardio',d:'35 min caminata o bici'},{n:'Nuevo esta fase',d:'No existia en fase 1'},{n:'Mantener zona 2',d:'120-140 bpm'}]},
+{dia:'Viernes',tipo:'Pesas',sub:'Dia C — Pecho + Hombros + Triceps · +5-10%',badge:'b-green',exs:[{n:'Press banca con barra',d:'4x4-6 · SUBE PESO'},{n:'Press inclinado barra',d:'3x6-8 · variante nueva'},{n:'Aperturas mancuerna',d:'3x12-15 · nuevo'},{n:'Press militar con barra',d:'4x6-8 · SUBE PESO'},{n:'Elevacion lateral cable',d:'4x10-12'},{n:'Press cerrado agarre estrecho',d:'3x8-10'}]},
+{dia:'Sabado',tipo:'Pesas',sub:'Dia D — Tren inferior · +5-10% peso',badge:'b-green',exs:[{n:'Sentadilla frontal',d:'4x6-8 · SUBE PESO'},{n:'Zancada bulgara',d:'3x8-10 c/lado · variante nueva'},{n:'Peso muerto sumo',d:'4x6-8 · SUBE PESO'},{n:'Patada gluteo polea',d:'3x12-15 c/lado · nuevo'},{n:'Hip thrust unilateral',d:'3x10-12 c/lado'},{n:'Elevacion talones prensa',d:'4x15-20'}]},
+{dia:'Domingo',tipo:'Descanso',sub:'Descanso completo',badge:'b-red',exs:[{n:'Sin ejercicio',d:'Recuperacion muscular activa'},{n:'Dormir 7-8 horas',d:'El musculo crece en reposo'}]}
+]},
+2:{nota:'Cargas maximas. Sem 11: baja intensidad al 60% y recarga calorica. Sem 12: vuelve al maximo.',dias:[
+{dia:'Lunes',tipo:'Pesas maxima',sub:'Dia A — Espalda + Biceps · CARGAS MAXIMAS',badge:'b-green',exs:[{n:'Peso muerto convencional',d:'5x3-5 · MAXIMO PESO'},{n:'Remo con barra',d:'4x5-6 · maximo'},{n:'Dominadas lastradas o jalones',d:'4x6-8'},{n:'Remo con mancuerna',d:'3x10 c/lado'},{n:'Curl concentrado supinado',d:'4x8-10'},{n:'Curl cable de pie',d:'3x12 · finisher'}]},
+{dia:'Martes',tipo:'Cardio',sub:'Zona 2 + HIIT — 45 min',badge:'b-blue',exs:[{n:'Zona 2 base',d:'30 min eliptica'},{n:'HIIT final',d:'6x30seg maximo/90seg recuperacion'},{n:'Total',d:'45 min · quema grasa maxima'}]},
+{dia:'Miercoles',tipo:'Pesas maxima',sub:'Dia B — Tren inferior · CARGAS MAXIMAS',badge:'b-green',exs:[{n:'Sentadilla con barra',d:'5x3-5 · MAXIMO PESO'},{n:'Prensa de pierna',d:'4x6-8 · drop set ultima serie'},{n:'Peso muerto rumano',d:'4x6-8 · maximo'},{n:'Curl femoral tumbado',d:'4x10 · excentrico 4seg'},{n:'Hip thrust con barra',d:'5x6-8 · MAXIMO PESO'},{n:'Sentadilla bulgara',d:'3x8 c/lado · pesadas'}]},
+{dia:'Jueves',tipo:'Cardio',sub:'Zona 2 — 40 min',badge:'b-blue',exs:[{n:'Caminata inclinada o bici',d:'40 min zona 2'},{n:'Sem 11 solamente',d:'Baja a 25 min intensidad suave'}]},
+{dia:'Viernes',tipo:'Pesas maxima',sub:'Dia C — Pecho + Hombros + Triceps MAXIMO',badge:'b-green',exs:[{n:'Press banca con barra',d:'5x3-5 · MAXIMO PESO'},{n:'Press inclinado mancuerna',d:'4x6-8'},{n:'Aperturas cable cruzado',d:'4x10-12 · contraccion maxima'},{n:'Press militar barra de pie',d:'5x4-6 · MAXIMO'},{n:'Elevacion lateral cable',d:'4x10-12'},{n:'Fondos triceps lastrados',d:'3x8-10'}]},
+{dia:'Sabado',tipo:'Pesas maxima',sub:'Dia D — Tren inferior MAXIMO',badge:'b-green',exs:[{n:'Sentadilla frontal',d:'4x5-6 · maximo'},{n:'Peso muerto sumo',d:'5x4-6 · MAXIMO PESO'},{n:'Zancada bulgara con barra',d:'3x8 c/lado'},{n:'Hip thrust unilateral',d:'4x10 c/lado'},{n:'Buenos dias',d:'3x10-12'},{n:'Elevacion talones sentado',d:'5x12-15'}]},
+{dia:'Domingo',tipo:'Descanso',sub:'Descanso completo — critico',badge:'b-red',exs:[{n:'Sin ejercicio',d:'El musculo se construye hoy'},{n:'Sem 11',d:'Recarga: baja cargas 40%, come mas'},{n:'Dormir 8 horas minimo',d:'Mayor demanda fisica del plan'}]}
+]}};
+
+function renderRutina(){var phIdx=getPhase(getCurrentSem());var R=RUTINAS[phIdx];document.getElementById('rutina-phase-banner').innerHTML=phaseBannerHTML(phIdx);var html='<div class="tip-box" style="margin:0 14px 10px">'+R.nota+'</div>';R.dias.forEach(function(r,i){var cols={'b-green':{ic:'var(--gbg)',tc:'var(--gt)'},'b-blue':{ic:'var(--bbg)',tc:'var(--btext)'},'b-amber':{ic:'var(--abg)',tc:'var(--atext)'},'b-red':{ic:'var(--rbg)',tc:'var(--red)'}};var col=cols[r.badge]||cols['b-green'];html+='<div class="ex-card" style="margin:5px 14px" id="rc-'+i+'"><div class="ex-head" onclick="document.getElementById(\'rc-'+i+'\').classList.toggle(\'open\')"><div class="ex-icon" style="background:'+col.ic+';color:'+col.tc+'"><svg viewBox="0 0 24 24"><line x1="6" y1="12" x2="18" y2="12"/><circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/></svg></div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;color:var(--text)">'+r.dia+'</div><div style="font-size:11px;color:var(--text3);margin-top:1px">'+r.sub+'</div></div><span class="badge '+r.badge+'">'+r.tipo+'</span><div class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="ex-body">';r.exs.forEach(function(e){html+='<div class="ex-row"><span class="ex-row-name">'+e.n+'</span><span class="ex-row-detail">'+e.d+'</span></div>';});html+='</div></div>';});document.getElementById('rutina-content').innerHTML=html;}
+
+// GRAFICOS
+var chartP=null,chartC=null,chartA=null;
+function renderCharts(){var labels=[],pesos=[],cinturas=[];D.semanas.forEach(function(w,i){if(w.peso||w.cintura){labels.push('S'+(i+1));pesos.push(w.peso?parseFloat(w.peso):null);cinturas.push(w.cintura?parseFloat(w.cintura):null);}});var diasL=[],aguaD=[];Object.keys(D.diarios).sort().slice(-14).forEach(function(k){var d=D.diarios[k];if(d&&d.agua){diasL.push(k.slice(0,5));aguaD.push(parseFloat(d.agua));}});var gc='rgba(255,255,255,0.06)',tc='#5a7a62';var Ch=window.Chart;if(chartP)chartP.destroy();chartP=new Ch(document.getElementById('chart-peso'),{type:'line',data:{labels:labels.length?labels:['S1','S4','S8','S12'],datasets:[{label:'Peso real kg',data:pesos.length?pesos:[null,null,null,null],borderColor:'#5cdb7a',pointBackgroundColor:'#5cdb7a',borderWidth:2,pointRadius:4,tension:0.35,fill:false,spanGaps:true},{label:'Meta ideal',data:(labels.length?labels:['S1','S4','S8','S12']).map(function(l,i,a){return parseFloat((73-(i*(15/(a.length-1||1)))).toFixed(1));}),borderColor:'#3a5540',borderDash:[4,4],borderWidth:1.5,pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tc,font:{size:11},boxWidth:18}}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc,font:{size:10}},title:{display:true,text:'kg',color:tc,font:{size:10}}}}}});if(chartC)chartC.destroy();chartC=new Ch(document.getElementById('chart-cintura'),{type:'bar',data:{labels:labels.length?labels:['S1','S4','S8','S12'],datasets:[{label:'Cintura cm',data:cinturas.length?cinturas:[null,null,null,null],backgroundColor:'rgba(96,196,250,0.2)',borderColor:'#60c4fa',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tc,font:{size:11},boxWidth:16}}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc,font:{size:10}},title:{display:true,text:'cm',color:tc,font:{size:10}}}}}});if(chartA)chartA.destroy();chartA=new Ch(document.getElementById('chart-agua'),{type:'line',data:{labels:diasL.length?diasL:['Dia1','Dia3','Dia5'],datasets:[{label:'Agua L',data:aguaD.length?aguaD:[null,null,null],borderColor:'#60c4fa',pointBackgroundColor:'#60c4fa',borderWidth:2,pointRadius:3,tension:0.3,fill:true,backgroundColor:'rgba(96,196,250,0.08)',spanGaps:true},{label:'Meta 2L',data:(diasL.length?diasL:['Dia1','Dia3','Dia5']).map(function(){return 2;}),borderColor:'#3a5540',borderDash:[4,4],borderWidth:1,pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tc,font:{size:11},boxWidth:18}}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{min:0,max:4,grid:{color:gc},ticks:{color:tc,font:{size:10}},title:{display:true,text:'litros',color:tc,font:{size:10}}}}}});}
+
+load();renderDash();renderMealDays();renderMeals();renderRutina();
+</script>
+</body>
+</html>
