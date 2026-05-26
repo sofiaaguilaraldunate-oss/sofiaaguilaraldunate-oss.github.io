@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 Tenidas · Sofía</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --ink:     #18110A;
+  --deep:    #2C1A0A;
+  --mid:     #6B4830;
+  --muted:   #9A8070;
+  --gold:    #B8903A;
+  --gold-lt: #D4B06A;
+  --terra:   #B85A30;
+  --olive:   #6A7A44;
+  --cream:   #FAF6EF;
+  --warm:    #F2EAD8;
+  --border:  rgba(184,144,58,0.2);
+
+  /* PRENDA COLORS */
+  --p1: #C4724A;   /* Blusa terracota */
+  --p2: #1B4D3E;   /* Blusa verde esmeralda */
+  --p3: #FAF0E0;   /* Blusa crema/blanco cálido */
+  --p4: #6B2737;   /* Blusa borgoña */
+  --p5: #D4B06A;   /* Blusa mostaza suave */
+  --p6: #1C1612;   /* Polera negra cálida */
+  --p7: #6A7A44;   /* Polera verde oliva */
+  --p8: #704214;   /* Polera camel/castaño */
+  --p9: #1B3A5C;   /* Polera azul petróleo */
+  --p10:#8B6914;   /* Polera mostaza oscura */
+  --p11:#2C1A0A;   /* Pantalón negro/oscuro */
+  --p12:#1A2840;   /* Jeans azul oscuro */
+  --p13:#704214;   /* Pantalón camel */
+  --p14:#3B2A1A;   /* Pantalón marrón */
+  --p15:#6A7A44;   /* Pantalón oliva */
+  --p16:#2C1A0A;   /* Falda lápiz negra */
+  --p17:#C4724A;   /* Falda terracota */
+  --p18:#6B2737;   /* Falda borgoña */
+  --p19:#2C1A0A;   /* Abrigo negro cálido */
+  --p20:#704214;   /* Blazer camel */
+  --p21:#1B4D3E;   /* Blazer verde oscuro */
+  --p22:#2C3040;   /* Chaqueta denim oscuro */
+  --p23:#3B2A1A;   /* Chaqueta cuero marrón */
+}
+
+body {
+  background: #E8DFD0;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--ink);
+  padding: 48px 40px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(184,144,58,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  position: relative;
+}
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.05;
+}
+.header h1 em { color: var(--gold-lt); font-style: italic; }
+.header-sub {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.header-stats {
+  display: flex;
+  gap: 20px;
+}
+.stat {
+  text-align: right;
+  border-left: 1px solid rgba(184,144,58,0.3);
+  padding-left: 16px;
+}
+.stat .n { font-family:'Cormorant Garamond',serif; font-size:32px; color:var(--gold-lt); line-height:1; }
+.stat .l { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:2px; }
+
+/* ── WARDROBE SECTION ── */
+.wardrobe-wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 32px 20px 0;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--deep);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+.section-label {
+  font-size: 9px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* ── WARDROBE GRID ── */
+.wardrobe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: 10px;
+  margin: 16px 0 32px;
+}
+.garment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+}
+.garment-icon {
+  width: 68px;
+  height: 80px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+  overflow: hidden;
+}
+.garment-icon:hover { transform: translateY(-3px); }
+.garment-icon svg { width: 44px; height: 56px; }
+.garment-code {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.garment-name {
+  font-size: 9.5px;
+  color: var(--mid);
+  text-align: center;
+  line-height: 1.3;
+  max-width: 70px;
+}
+
+/* ── OUTFITS SECTION ── */
+.outfits-wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+/* Category tabs */
+.cat-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 20px 0 24px;
+}
+.cat-tab {
+  padding: 7px 18px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+  color: var(--mid);
+}
+.cat-tab:hover { border-color: var(--gold); color: var(--gold); }
+.cat-tab.active { background: var(--ink); color: var(--gold-lt); border-color: var(--ink); }
+
+/* Outfits grid */
+.outfits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* Outfit card */
+.outfit-card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 3px 16px rgba(44,26,10,0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: fadeUp 0.5s ease both;
+}
+.outfit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 32px rgba(44,26,10,0.14);
+}
+.outfit-card.hidden { display: none; }
+
+.outfit-visual {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 20px 12px;
+  position: relative;
+}
+.outfit-num {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  line-height: 1;
+}
+.outfit-occasion {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 8.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+}
+
+/* Cloth pieces in card */
+.piece {
+  width: 48px;
+  height: 62px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.piece svg { width: 30px; height: 40px; }
+.piece.plus {
+  background: none !important;
+  box-shadow: none;
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  width: 16px;
+}
+
+.outfit-body { padding: 14px 16px 16px; }
+.outfit-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--deep);
+  margin-bottom: 4px;
+}
+.outfit-pieces {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.outfit-desc {
+  font-size: 11.5px;
+  color: var(--mid);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.outfit-tip {
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  line-height: 1.5;
+}
+.outfit-tip strong { color: var(--terra); font-weight: 500; }
+
+/* ── TIPS SECTION ── */
+.tips-section {
+  max-width: 1140px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.tip-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(44,26,10,0.06);
+  border-left: 3px solid var(--gold);
+}
+.tip-card h4 { font-size: 12px; color: var(--deep); margin-bottom: 5px; font-weight: 500; }
+.tip-card p { font-size: 11px; color: var(--mid); line-height: 1.55; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Footer */
+.footer {
+  background: var(--ink);
+  text-align: center;
+  padding: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--gold-lt);
+  letter-spacing: 0.5px;
+}
+
+@media (max-width:600px) {
+  .header { padding: 32px 20px 24px; }
+  .outfits-grid { grid-template-columns: 1fr 1fr; }
+  .wardrobe-grid { grid-template-columns: repeat(5, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <p class="header-sub">Asesoría de imagen · Sofía</p>
+      <h1><em>30 Tenidas</em><br>con pocas prendas</h1>
+    </div>
+    <div class="header-stats">
+      <div class="stat"><div class="n">23</div><div class="l">Prendas base</div></div>
+      <div class="stat"><div class="n">30</div><div class="l">Combinaciones</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">Ocasiones</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WARDROBE -->
+<div class="wardrobe-wrap">
+  <span class="section-label">Tu guardarropa cápsula</span>
+  <h2 class="section-title">Las 23 prendas base · Todo en tonos Deep Autumn</h2>
+  <p style="font-size:12.5px;color:var(--mid);line-height:1.6;max-width:700px;margin-bottom:22px;">Imágenes de referencia real para ir de compras — cada foto muestra exactamente la silueta y estilo que buscas. Las imágenes cargan desde Unsplash (requiere conexión a internet).</p>
+
+  <div style="margin-bottom:28px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #B8903A;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#B8903A;line-height:1;">B</span>
+      <div>
+        <p style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#B8903A;">Categoría 01</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#2C1A0A;font-weight:400;">Blusas · 5 prendas</h3>
+      </div>
+      <p style="font-size:11px;color:#9A8070;margin-left:8px;line-height:1.5;max-width:380px;">Escote V o wrap. Telas con caída: seda, satén, viscosa. Siempre tucked in para marcar cintura.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;">
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#C4724A;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?terracotta+wrap+blouse+women"
+            alt="Blusa terracota · Wrap"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#C4724A;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,terracotta';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">WRAP · ESCOTE V</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#C4724A;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">B1 · Terracota</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Blusa terracota · Wrap</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Wrap o escote V, manga 3/4. Seda o satén. Siempre tucked in.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1B4D3E;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?emerald+green+blouse+women"
+            alt="Blusa esmeralda · Satin"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1B4D3E;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,emerald';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">SATIN WRAP</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1B4D3E;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">B2 · Esmeralda</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Blusa esmeralda · Satin</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Wrap o cowl. Satén verde profundo. Pieza de mayor impacto visual.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#D4C09A;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?cream+ivory+blouse+women+vneck"
+            alt="Blusa crema · V-neck"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#D4C09A;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,cream';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">V-NECK · CREMA</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#D4C09A;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">B3 · Crema cálida</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Blusa crema · V-neck</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Crema beige, nunca blanco puro. V suave. Algodón o seda.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#6B2737;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?burgundy+satin+blouse+women"
+            alt="Blusa borgoña · Cowl"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#6B2737;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,burgundy';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">COWL NECK</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#6B2737;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">B4 · Borgoña</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Blusa borgoña · Cowl</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Cowl neck o escote V. Satén con caída. Muy sofisticada.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#C8A030;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?mustard+puff+sleeve+blouse+women"
+            alt="Blusa mostaza · Puff sleeve"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#C8A030;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,mustard';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">PUFF SLEEVE</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#C8A030;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">B5 · Mostaza</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Blusa mostaza · Puff sleeve</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Manga abullonada moderada. Ajustada al cuerpo. Tucked in.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #B8903A;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#B8903A;line-height:1;">T</span>
+      <div>
+        <p style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#B8903A;">Categoría 02</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#2C1A0A;font-weight:400;">Poleras & Tops · 5 prendas</h3>
+      </div>
+      <p style="font-size:11px;color:#9A8070;margin-left:8px;line-height:1.5;max-width:380px;">Ajustadas al cuerpo. Jersey, ribbed o algodón. Base de la mayoría de los outfits.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;">
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1C1612;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?black+fitted+tshirt+women+basic"
+            alt="Polera negra · Ajustada"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1C1612;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,black';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">BASIC FITTED</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1C1612;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">T1 · Negra</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Polera negra · Ajustada</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Cuello V o redondo. Ajustada. La más versátil del guardarropa.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#6A7A44;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?olive+green+fitted+top+women"
+            alt="Polera oliva · Manga larga"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#6A7A44;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,olive';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">LONG SLEEVE</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#6A7A44;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">T2 · Oliva</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Polera oliva · Manga larga</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Manga larga ajustada. Ribbed o jersey. Combina con todo.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#9A6840;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?camel+turtleneck+sweater+women"
+            alt="Turtleneck camel · Ajustado"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#9A6840;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,camel';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">TURTLENECK</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#9A6840;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">T3 · Camel</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Turtleneck camel · Ajustado</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Cuello alto vuelto. Jersey suave. Perfecto bajo el blazer.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1B3A5C;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?dark+navy+ribbed+top+women"
+            alt="Polera petróleo · Ribbed"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1B3A5C;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,dark';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">RIBBED</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1B3A5C;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">T4 · Petróleo</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Polera petróleo · Ribbed</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Ribbed ajustada. Azul muy oscuro profundo.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#C8A030;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?mustard+fitted+top+women"
+            alt="Polera mostaza · Ajustada"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#C8A030;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,mustard';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">FITTED</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#C8A030;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">T5 · Mostaza oscura</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Polera mostaza · Ajustada</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Mostaza profunda. Ajustada. Con jeans + cuero.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #B8903A;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#B8903A;line-height:1;">P</span>
+      <div>
+        <p style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#B8903A;">Categoría 03</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#2C1A0A;font-weight:400;">Pantalones · 5 prendas</h3>
+      </div>
+      <p style="font-size:11px;color:#9A8070;margin-left:8px;line-height:1.5;max-width:380px;">Tiro alto siempre. Corte recto o ligeramente acampanado. Evita skinny muy apretado.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;">
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1C1208;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?black+high+waist+straight+trousers+women"
+            alt="Pantalón negro · Recto"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1C1208;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,black';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">STRAIGHT HIGH WAIST</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1C1208;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">P1 · Negro sastre</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Pantalón negro · Recto</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Recto tiro alto. Sastre. El más versátil de la cápsula.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1A2840;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?dark+wash+straight+jeans+women+high+waist"
+            alt="Jeans dark wash · Recto"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1A2840;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,dark';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">DARK WASH</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1A2840;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">P2 · Jeans</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Jeans dark wash · Recto</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Dark wash sin desgaste. Recto tiro alto. El más casual.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#A06030;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?camel+wide+leg+trousers+women+high+waist"
+            alt="Pantalón camel · Wide leg"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#A06030;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,camel';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">WIDE LEG</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#A06030;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">P3 · Camel wide</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Pantalón camel · Wide leg</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Wide leg tiro muy alto. Elegante con polera negra.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#3B2010;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?brown+straight+trousers+women"
+            alt="Pantalón marrón · Recto"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#3B2010;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,brown';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">CHOCOLATE</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#3B2010;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">P4 · Marrón</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Pantalón marrón · Recto</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Recto o slim. Combina con borgoña y esmeralda.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#6A7A44;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?olive+green+straight+pants+women"
+            alt="Pantalón oliva · Casual"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#6A7A44;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,olive';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">CASUAL</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#6A7A44;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">P5 · Oliva</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Pantalón oliva · Casual</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Recto casual. Sin bolsillos laterales grandes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #B8903A;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#B8903A;line-height:1;">F</span>
+      <div>
+        <p style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#B8903A;">Categoría 04</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#2C1A0A;font-weight:400;">Faldas lápiz · 3 prendas</h3>
+      </div>
+      <p style="font-size:11px;color:#9A8070;margin-left:8px;line-height:1.5;max-width:380px;">Sobre la rodilla (5–8 cm arriba). Ajustada y ceñida. Tiro alto siempre.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;">
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1C1208;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?black+pencil+skirt+above+knee+women"
+            alt="Falda lápiz negra · Sobre rodilla"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1C1208;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,black';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">PENCIL SKIRT</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1C1208;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">F1 · Lápiz negra</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Falda lápiz negra · Sobre rodilla</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Ceñida, tiro alto, 5cm sobre rodilla. Versátil.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#C4724A;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?terracotta+pencil+skirt+above+knee+women"
+            alt="Falda lápiz terracota · Sobre rodilla"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#C4724A;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,terracotta';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">PENCIL TERRACOTA</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#C4724A;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">F2 · Lápiz terracota</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Falda lápiz terracota · Sobre rodilla</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Ceñida sobre rodilla. Con polera negra tucked in.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#6B2737;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?burgundy+pencil+skirt+above+knee+women"
+            alt="Falda lápiz borgoña · Sobre rodilla"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#6B2737;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,burgundy';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">PENCIL BORGOÑA</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#6B2737;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">F3 · Lápiz borgoña</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Falda lápiz borgoña · Sobre rodilla</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Con blazer camel = look de oficina más elegante.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #B8903A;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#B8903A;line-height:1;">C</span>
+      <div>
+        <p style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#B8903A;">Categoría 05</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#2C1A0A;font-weight:400;">Capas · Blazers · Chaquetas · Abrigo</h3>
+      </div>
+      <p style="font-size:11px;color:#9A8070;margin-left:8px;line-height:1.5;max-width:380px;">Las prendas que más transforman tu look. Siempre abiertas para crear línea vertical.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;">
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1C1208;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?black+long+coat+women+elegant"
+            alt="Abrigo negro · Largo"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1C1208;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,black';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">LONG COAT</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1C1208;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">A1 · Abrigo negro</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Abrigo negro · Largo</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Hasta rodilla o más. Estructurado. La inversión más importante.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#9A6830;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?camel+structured+blazer+women+one+button"
+            alt="Blazer camel · Un botón"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#9A6830;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,camel';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">CAMEL BLAZER</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#9A6830;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">BL1 · Blazer camel</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Blazer camel · Un botón</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Estructurado, largo a cadera. Mayor retorno de inversión.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#1B4D3E;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?emerald+green+blazer+women+oversized"
+            alt="Blazer esmeralda · Oversized"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#1B4D3E;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,emerald';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">EMERALD BLAZER</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#1B4D3E;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">BL2 · Blazer esmeralda</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Blazer esmeralda · Oversized</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Verde oscuro. Pieza de color más impactante.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#2C3040;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?dark+denim+jacket+women+classic"
+            alt="Chaqueta denim · Dark wash"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#2C3040;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,dark';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">DARK DENIM</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#2C3040;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">C1 · Denim</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Chaqueta denim · Dark wash</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Dark wash clásica. Que llegue a cintura o cadera completa.</p>
+        </div>
+      </div>
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(44,26,10,0.09);display:flex;flex-direction:column;">
+        <div style="height:5px;background:#5C3018;"></div>
+        <div style="position:relative;height:220px;overflow:hidden;">
+          <img src="https://source.unsplash.com/300x400/?brown+leather+moto+jacket+women"
+            alt="Chaqueta cuero · Moto"
+            loading="lazy"
+            style="width:100%;height:220px;object-fit:cover;object-position:top center;display:block;background:#5C3018;"
+            onerror="this.onerror=null;this.src='https://source.unsplash.com/300x400/?fashion,brown';">
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.5);border-radius:4px;padding:3px 8px;font-size:8.5px;color:rgba(255,255,255,0.92);letter-spacing:1.2px;text-transform:uppercase;">LEATHER MOTO</div>
+        </div>
+        <div style="padding:11px 13px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#5C3018;flex-shrink:0;"></div>
+            <span style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#B8903A;font-weight:600;">C2 · Cuero marrón</span>
+          </div>
+          <p style="font-size:11.5px;font-weight:500;color:#2C1A0A;margin-bottom:3px;">Chaqueta cuero · Moto</p>
+          <p style="font-size:10.5px;color:#9A8070;line-height:1.5;">Moto o clásica. Marrón cálido. Siempre abierta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#18110A;border-radius:12px;padding:18px 22px;margin-bottom:8px;display:flex;gap:14px;align-items:flex-start;">
+    <span style="font-size:22px;flex-shrink:0;margin-top:2px;">🛍</span>
+    <div>
+      <p style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#B8903A;margin-bottom:6px;">Guía para ir de compras</p>
+      <p style="font-size:12px;color:rgba(250,246,239,0.82);line-height:1.7;">Lleva los <strong style="color:#D4B06A;">códigos B·T·P·F·C</strong> al probarte ropa. Prioriza las capas (BL1 camel, A1 negro, C2 cuero). Con <strong style="color:#D4B06A;">T1 + P2</strong> ya tienes base para 8+ tenidas. <strong style="color:#D4B06A;">Tiro alto siempre</strong> en pantalones y faldas.</p>
+    </div>
+  </div>
+
+</div>
+<!-- OUTFITS -->
+<div class="outfits-wrap">
+  <span class="section-label">Las combinaciones</span>
+  <h2 class="section-title">30 Tenidas · Oficina · Casual · Noche · Weekend</h2>
+
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="filter('all', this)">Todas (30)</button>
+    <button class="cat-tab" onclick="filter('oficina', this)">🏢 Oficina (10)</button>
+    <button class="cat-tab" onclick="filter('casual', this)">☀️ Casual (8)</button>
+    <button class="cat-tab" onclick="filter('noche', this)">🌙 Noche (6)</button>
+    <button class="cat-tab" onclick="filter('weekend', this)">🍂 Weekend (6)</button>
+  </div>
+
+  <div class="outfits-grid" id="outfitsGrid">
+
+    <!-- ── OFICINA ── -->
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.02s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#2C1A0A,#4A2A14);">
+        <span class="outfit-num">01</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p1);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p20);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Poder terracota</div>
+        <div class="outfit-pieces">B1 · P1 · BL1</div>
+        <div class="outfit-desc">Blusa terracota + pantalón negro + blazer camel. Combinación de alto contraste cálido, muy profesional.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Collar cadena dorada larga + zapato negro con hebilla dorada.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.04s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#1B4D3E,#0F2C22);">
+        <span class="outfit-num">02</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p3);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p21);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Ejecutiva esmeralda</div>
+        <div class="outfit-pieces">B3 · P1 · BL2</div>
+        <div class="outfit-desc">Blusa crema + pantalón negro + blazer esmeralda. El verde intenso cerca del rostro potencia tus ojos café.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Aros dorados medianos. Cartera negra con hardware dorado.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.06s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6B2737,#3A1020);">
+        <span class="outfit-num">03</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p4);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p14);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p19);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Borgoña invernal</div>
+        <div class="outfit-pieces">B4 · P4 · A1</div>
+        <div class="outfit-desc">Blusa borgoña + pantalón marrón + abrigo negro. Look monocromático cálido con mucha sofisticación.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Bolso cognac. Botines negros o marrón oscuro.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.08s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#704214,#3A2008);">
+        <span class="outfit-num">04</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p6);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p13);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p20);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Camel clásico</div>
+        <div class="outfit-pieces">T1 · P3 · BL1</div>
+        <div class="outfit-desc">Polera negra + pantalón camel + blazer camel. El tono sobre tono camel es una de las combinaciones más elegantes.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Cinturón camel estrecho en cintura. Zapato negro de punta.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.10s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#1B3A5C,#0D1E30);">
+        <span class="outfit-num">05</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p3);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p16);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p20);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Falda midi power</div>
+        <div class="outfit-pieces">B3 · F1 · BL1</div>
+        <div class="outfit-desc">Blusa crema + falda lápiz negra + blazer camel. Clásico intemporal que alarga la figura y marca la cintura.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Tacón nude o camel. Collar corto dorado.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.12s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6A7A44,#3A4A24);">
+        <span class="outfit-num">06</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p6);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p21);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Monocromático oscuro</div>
+        <div class="outfit-pieces">T1 · P1 · BL2</div>
+        <div class="outfit-desc">Todo negro con blazer esmeralda como pieza focal. El verde intenso rompe el look básico y añade personalidad.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Aros colgantes dorados con piedra verde o cornalina.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.14s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#3B2A1A,#1A1008);">
+        <span class="outfit-num">07</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p2);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p14);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p23);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Tierra profunda</div>
+        <div class="outfit-pieces">B2 · P4 · C2</div>
+        <div class="outfit-desc">Blusa esmeralda + pantalón marrón + chaqueta cuero. Más casual-smart. Perfecto para viernes de oficina.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Botín marrón castaño. Pulsera cuero cognac.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.16s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#8B6914,#4A3808);">
+        <span class="outfit-num">08</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p5);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p19);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Mostaza & negro</div>
+        <div class="outfit-pieces">B5 · P1 · A1</div>
+        <div class="outfit-desc">Blusa mostaza + pantalón negro + abrigo negro. La mostaza ilumina el rostro con calidez sin sobrecargarlo.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Zapato negro clásico. Anillo dorado signet.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.18s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6B2737,#2C1A0A);">
+        <span class="outfit-num">09</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p3);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p18);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p20);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Falda borgoña formal</div>
+        <div class="outfit-pieces">B3 · F3 · BL1</div>
+        <div class="outfit-desc">Blusa crema + falda borgoña + blazer camel. Combinación femenina y muy profesional. Ideal para reuniones importantes.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Tacón nude. Cartera pequeña camel.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="oficina" style="animation-delay:0.20s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6A7A44,#2C1A0A);">
+        <span class="outfit-num">10</span>
+        <span class="outfit-occasion">Oficina</span>
+        <div class="piece" style="background:var(--p7);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p20);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Oliva & camel</div>
+        <div class="outfit-pieces">T2 · P1 · BL1</div>
+        <div class="outfit-desc">Polera oliva + pantalón negro + blazer camel. Colores tierra perfectamente armonizados, look muy maduro.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Reloj dorado correa cuero. Aros huggies bronce.</div>
+      </div>
+    </div>
+
+    <!-- ── CASUAL ── -->
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.22s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#C4724A,#6B3020);">
+        <span class="outfit-num">11</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p1);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p12);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p22);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Terracota & denim</div>
+        <div class="outfit-pieces">B1 · P2 · C1</div>
+        <div class="outfit-desc">Blusa terracota + jeans oscuro + chaqueta denim. El denim oscuro equilibra el brillo de la blusa y la chaqueta da capas.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Zapatilla blanca cálida o botín cognac.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.24s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#3B2A1A,#1A1008);">
+        <span class="outfit-num">12</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p8);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p12);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p23);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Cuero & camel</div>
+        <div class="outfit-pieces">T3 · P2 · C2</div>
+        <div class="outfit-desc">Polera camel + jeans oscuro + chaqueta cuero marrón. Look muy actual. Los tonos tierra crean un degradado natural.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Botín marrón o zapatilla camel. Stack pulseras doradas.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.26s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#1A2840,#0A0E18);">
+        <span class="outfit-num">13</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p9);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p12);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p22);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Azul profundo</div>
+        <div class="outfit-pieces">T4 · P2 · C1</div>
+        <div class="outfit-desc">Polera petróleo + jeans oscuro + chaqueta denim. Tono sobre tono azul profundo. Contraste de texturas muy elegante.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Zapatilla blanca o bota caña alta cognac.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.28s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6A7A44,#2C3A18);">
+        <span class="outfit-num">14</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p7);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p15);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p22);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Oliva total</div>
+        <div class="outfit-pieces">T2 · P5 · C1</div>
+        <div class="outfit-desc">Polera + pantalón + chaqueta en familia oliva-verde. Look monocromático muy moderno. Las texturas lo hacen interesante.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Zapatilla blanca para contrastar. Bolso camel.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.30s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#8B6914,#3A2808);">
+        <span class="outfit-num">15</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p10);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p12);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p23);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Mostaza & cuero</div>
+        <div class="outfit-pieces">T5 · P2 · C2</div>
+        <div class="outfit-desc">Polera mostaza oscura + jeans + chaqueta cuero. La mostaza y el cuero marrón son una dupla Deep Autumn clásica.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Botín negro. Cartera crossbody marrón.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.32s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#C4724A,#3B1808);">
+        <span class="outfit-num">16</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p6);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p17);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p23);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Falda terracota diaria</div>
+        <div class="outfit-pieces">T1 · F2 · C2</div>
+        <div class="outfit-desc">Polera negra + falda lápiz terracota + chaqueta cuero. La falda es el punto de color, la polera negra la potencia sin competir.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Bota corta negra. Collar dorado largo.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.34s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#1B4D3E,#0A2018);">
+        <span class="outfit-num">17</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p6);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p15);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p22);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Verde & negro</div>
+        <div class="outfit-pieces">T1 · P5 · C1</div>
+        <div class="outfit-desc">Polera negra + pantalón oliva + chaqueta denim oscuro. Neutros profundos muy favorecedores para tu colorimetría.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Zapatilla blanca. Gorro de punto camel en invierno.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="casual" style="animation-delay:0.36s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#704214,#2C1408);">
+        <span class="outfit-num">18</span>
+        <span class="outfit-occasion">Casual</span>
+        <div class="piece" style="background:var(--p5);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p14);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p23);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Tierra cálida</div>
+        <div class="outfit-pieces">B5 · P4 · C2</div>
+        <div class="outfit-desc">Blusa mostaza + pantalón marrón + chaqueta cuero. Paleta completamente terrosa que potencia tu calidez natural.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Botín camel. Aros aro dorado mediano.</div>
+      </div>
+    </div>
+
+    <!-- ── NOCHE ── -->
+
+    <div class="outfit-card" data-cat="noche" style="animation-delay:0.38s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6B2737,#1A0810);">
+        <span class="outfit-num">19</span>
+        <span class="outfit-occasion">🌙 Noche</span>
+        <div class="piece" style="background:var(--p4);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p19);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Borgoña nocturna</div>
+        <div class="outfit-pieces">B4 · P1 · A1</div>
+        <div class="outfit-desc">Blusa borgoña + pantalón negro + abrigo negro. Look oscuro y sofisticado. La blusa de borgoña da el punto de color intenso.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Tacón negro. Cartera de mano dorada o granate. Labial terracota oscuro.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="noche" style="animation-delay:0.40s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#1B4D3E,#081A12);">
+        <span class="outfit-num">20</span>
+        <span class="outfit-occasion">🌙 Noche</span>
+        <div class="piece" style="background:var(--p2);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p16);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p19);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Esmeralda & negro</div>
+        <div class="outfit-pieces">B2 · F1 · A1</div>
+        <div class="outfit-desc">Blusa esmeralda + falda lápiz negra + abrigo negro. Femenino, elegante y dramatic. El esmeralda en blusa impacta.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Tacón dorado o nude. Aros colgantes dorados con piedra.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="noche" style="animation-delay:0.42s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#C4724A,#4A1808);">
+        <span class="outfit-num">21</span>
+        <span class="outfit-occasion">🌙 Noche</span>
+        <div class="piece" style="background:var(--p1);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p16);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Terracota total</div>
+        <div class="outfit-pieces">B1 · F1</div>
+        <div class="outfit-desc">Blusa terracota + falda lápiz negra. Simple pero muy potente. Perfecto para cenas o teatro. Solo 2 prendas.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Collar chunky dorado. Tacón negro. Labial ladrillo oscuro.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="noche" style="animation-delay:0.44s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6B2737,#C4724A);">
+        <span class="outfit-num">22</span>
+        <span class="outfit-occasion">🌙 Noche</span>
+        <div class="piece" style="background:var(--p6);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p18);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p19);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Falda borgoña dramática</div>
+        <div class="outfit-pieces">T1 · F3 · A1</div>
+        <div class="outfit-desc">Polera negra + falda lápiz borgoña + abrigo negro. La falda es la estrella. Look muy dramático y favorecedor.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Botín negro o tacón burdeos. Brazalete bronce ancho.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="noche" style="animation-delay:0.46s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#3B2A1A,#B8903A);">
+        <span class="outfit-num">23</span>
+        <span class="outfit-occasion">🌙 Noche</span>
+        <div class="piece" style="background:var(--p5);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p21);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Mostaza eléctrica</div>
+        <div class="outfit-pieces">B5 · P1 · BL2</div>
+        <div class="outfit-desc">Blusa mostaza + pantalón negro + blazer esmeralda. Dos colores de poder juntos = look muy editorial y memorable.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Tacón negro. Aros dorados statement. Sin collares.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="noche" style="animation-delay:0.48s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#1B4D3E,#6B2737);">
+        <span class="outfit-num">24</span>
+        <span class="outfit-occasion">🌙 Noche</span>
+        <div class="piece" style="background:var(--p3);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p11);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p21);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Crema & esmeralda</div>
+        <div class="outfit-pieces">B3 · P1 · BL2</div>
+        <div class="outfit-desc">Blusa crema + pantalón negro + blazer esmeralda. La crema suaviza el look y el esmeralda da la nota de lujo.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Tacón dorado. Collar cadena gruesa dorada.</div>
+      </div>
+    </div>
+
+    <!-- ── WEEKEND ── -->
+
+    <div class="outfit-card" data-cat="weekend" style="animation-delay:0.50s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#8B6914,#3A2808);">
+        <span class="outfit-num">25</span>
+        <span class="outfit-occasion">🍂 Weekend</span>
+        <div class="piece" style="background:var(--p8);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p15);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p19);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Paseo en otoño</div>
+        <div class="outfit-pieces">T3 · P5 · A1</div>
+        <div class="outfit-desc">Polera camel + pantalón oliva + abrigo negro. Paleta completamente otoñal. Ideal para paseos, mercados o brunch.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Bota caña alta marrón. Bolso tote camel.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="weekend" style="animation-delay:0.52s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#C4724A,#1A2840);">
+        <span class="outfit-num">26</span>
+        <span class="outfit-occasion">🍂 Weekend</span>
+        <div class="piece" style="background:var(--p1);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p15);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p22);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Terracota activa</div>
+        <div class="outfit-pieces">B1 · P5 · C1</div>
+        <div class="outfit-desc">Blusa terracota + pantalón oliva + chaqueta denim. Look muy completo y cómodo. Colores complementarios perfectos.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Zapatilla blanca. Bolso crossbody marrón.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="weekend" style="animation-delay:0.54s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#1B3A5C,#3B2A1A);">
+        <span class="outfit-num">27</span>
+        <span class="outfit-occasion">🍂 Weekend</span>
+        <div class="piece" style="background:var(--p9);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p14);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p23);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Petróleo & cuero</div>
+        <div class="outfit-pieces">T4 · P4 · C2</div>
+        <div class="outfit-desc">Polera azul petróleo + pantalón marrón + chaqueta cuero. Azul profundo y marrón: combinación que siempre funciona.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Botín marrón. Gafas marco carey.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="weekend" style="animation-delay:0.56s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6B2737,#704214);">
+        <span class="outfit-num">28</span>
+        <span class="outfit-occasion">🍂 Weekend</span>
+        <div class="piece" style="background:var(--p4);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p12);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p22);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Borgoña & jeans</div>
+        <div class="outfit-pieces">B4 · P2 · C1</div>
+        <div class="outfit-desc">Blusa borgoña + jeans oscuro + chaqueta denim. El borgoña con jeans es siempre un éxito. Muy favorecedor y cómodo.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Zapatilla cuero blanca o botín negro.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="weekend" style="animation-delay:0.58s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#6A7A44,#6B2737);">
+        <span class="outfit-num">29</span>
+        <span class="outfit-occasion">🍂 Weekend</span>
+        <div class="piece" style="background:var(--p7);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p12);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p19);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Oliva & abrigo</div>
+        <div class="outfit-pieces">T2 · P2 · A1</div>
+        <div class="outfit-desc">Polera oliva + jeans oscuro + abrigo negro. Sencillo, completo y muy elegante. Funciona de día o de noche cambiando el zapato.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Día: zapatilla. Noche: botín negro. Bufanda mostaza opcional.</div>
+      </div>
+    </div>
+
+    <div class="outfit-card" data-cat="weekend" style="animation-delay:0.60s">
+      <div class="outfit-visual" style="background:linear-gradient(135deg,#704214,#1B4D3E);">
+        <span class="outfit-num">30</span>
+        <span class="outfit-occasion">🍂 Weekend</span>
+        <div class="piece" style="background:var(--p3);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p13);"></div>
+        <div class="piece plus">+</div>
+        <div class="piece" style="background:var(--p23);"></div>
+      </div>
+      <div class="outfit-body">
+        <div class="outfit-name">Crema & camel weekend</div>
+        <div class="outfit-pieces">B3 · P3 · C2</div>
+        <div class="outfit-desc">Blusa crema + pantalón camel + chaqueta cuero. Paleta luminosa y suave. Perfecta para días claros o salidas relajadas.</div>
+        <div class="outfit-tip"><strong>Accesorio:</strong> Sandalia dorada o plataforma camel. Bolso tote marrón.</div>
+      </div>
+    </div>
+
+  </div><!-- /outfits-grid -->
+</div><!-- /outfits-wrap -->
+
+<!-- TIPS -->
+<div class="tips-section">
+  <span class="section-label">Reglas de oro</span>
+  <h2 class="section-title">Tips de asesoría de imagen para tu tipo de cuerpo</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>✦ Marca siempre la cintura</h4>
+      <p>Con tu figura curvilínea, meter la blusa por dentro, usar cinturones o prendas entalladas en la zona media es siempre la mejor decisión. Nunca dejes que la prenda superior tape la cintura.</p>
+    </div>
+    <div class="tip-card">
+      <h4>✦ Ajustado arriba, fluido abajo</h4>
+      <p>Tu fórmula ganadora. Blusa o polera ajustada + pantalón recto o ligeramente acampanado. Evita holgado arriba y abajo — pierde completamente la silueta.</p>
+    </div>
+    <div class="tip-card">
+      <h4>✦ Escotes V y U son tus aliados</h4>
+      <p>Alargan el cuello, estilizan el busto y son más favorecedores que el cuello redondo alto. El escote en V en particular crea una línea vertical que estiliza.</p>
+    </div>
+    <div class="tip-card">
+      <h4>✦ El blazer cambia todo</h4>
+      <p>Un blazer bien cortado sobre cualquier polera básica transforma el look de casual a profesional en segundos. Es la prenda de mayor retorno de inversión de tu guardarropa.</p>
+    </div>
+    <div class="tip-card">
+      <h4>✦ Pantalón recto o campana</h4>
+      <p>Para tu complexión, el pantalón recto o con leve acampanado abajo equilibra visualmente caderas y hombros. Evita los muy skinny que aprietan en muslos, y los muy holgados que ensanchan.</p>
+    </div>
+    <div class="tip-card">
+      <h4>✦ Colores cálidos cerca del rostro</h4>
+      <p>Cuando uses pantalón neutro (negro, marrón), pon el color cálido (terracota, mostaza, esmeralda) en la parte superior. Así la luz cálida ilumina tu cara y la atención va hacia arriba.</p>
+    </div>
+    <div class="tip-card">
+      <h4>✦ Largo midi te favorece</h4>
+      <p>Las faldas y vestidos midi (bajo la rodilla, sobre el tobillo) alargan visualmente la figura. Los cortes a media pantorrilla son el único largo que acorta — evítalo.</p>
+    </div>
+    <div class="tip-card">
+      <h4>✦ El negro = cálido siempre</h4>
+      <p>Tu negro debe tener subtono cálido. Evita negros con brillo azulado o frío. Un negro cálido + cualquier color de tu paleta = look infalible.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  ♥ 23 prendas · 30 tenidas · Todas en tu paleta Deep Autumn · Sofía
+</div>
+
+<script>
+function filter(cat, btn) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.outfit-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+</script>
+
+<script>
+document.querySelectorAll('.wardrobe-wrap img').forEach(function(img) {
+  img.addEventListener('error', function() {
+    this.style.display = 'none';
+    var fallback = this.nextElementSibling;
+    if (fallback) fallback.style.display = 'flex';
+  });
+});
+</script>
+</body>
+</html>
